@@ -1,7 +1,20 @@
-import { React, Component } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export default class Index extends Component {
-    render() {
+export default function Index() {
+        const [ results, setResults ] = useState('');
+        (async () => {
+          try{
+            const response = await axios.get('http://localhost:5000/api/courses').then(
+                response => response.data
+            );
+            response.forEach(item => {
+                console.log(item)
+            });
+          } catch(error) {
+      
+          }
+        })();
       return (
         <div id='Index_div'>
             <header>
@@ -40,5 +53,4 @@ export default class Index extends Component {
             </main>
         </div>
       )
-    }
 }
