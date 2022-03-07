@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Index() {
         const [ results, setResults ] = useState('');
-        (async () => {
+        async function loader() {
           try{
             const response = await axios.get('http://localhost:5000/api/courses').then(
-                response => response.data
+                response => setResults(response.data)
             );
-            response.forEach(item => {
-                console.log(item)
-            });
           } catch(error) {
-      
+            console.log(error.message);
           }
-        })();
+        };
+        useEffect(()=>{loader()}, []);
       return (
         <div id='Index_div'>
             <header>
