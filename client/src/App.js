@@ -19,13 +19,14 @@ function App() {
     <Header />
       <Routes>
         <Route exact path='/' element={<Index/>}></Route>
-        <Route path='/1' element={<CourseDetail/>}></Route>
-        <Route path='/2' element={<CreateCourse/>}></Route>
-        <Route path='/3' element={<Forbidden/>}></Route>
-        <Route path='/4' element={<NotFound/>}></Route>
-        <Route path='/5' element={<SignIn/>}></Route>
-        <Route path='/6' element={<SignUp/>}></Route>
-        <Route path='/7' element={<UpdateCourse/>}></Route>
+        <Route path='/course_detail' element={<CourseDetail/>}></Route>
+        <Route path='/course_detail/:id' element={<CourseDetail/>}></Route>
+        <Route path='/create_course' element={<CreateCourse/>}></Route>
+        <Route path='/forbidden' element={<Forbidden/>}></Route>
+        <Route path='/not_found' element={<NotFound/>}></Route>
+        <Route path='/sign_in' element={<SignIn/>}></Route>
+        <Route path='/sign_up' element={<SignUp/>}></Route>
+        <Route path='/update_course' element={<UpdateCourse/>}></Route>
         <Route element={<NotFound/>}></Route>
       </Routes>
     </BrowserRouter>
