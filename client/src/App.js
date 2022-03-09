@@ -1,24 +1,25 @@
 import './App.css';
-import axios from 'axios';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
-import Index from './components/Index';
+import Courses from './components/Courses';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import UpdateCourse from './components/UpdateCourse';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 function App() {
 
   return (
     <BrowserRouter>
-    <Header />
+      <Header />
       <Routes>
-        <Route exact path='/' element={<Index/>}></Route>
+        <Route exact path='/' element={<Courses/>}></Route>
         <Route path='/course_detail' element={<CourseDetail/>}></Route>
         <Route path='/course_detail/:id' element={<CourseDetail/>}></Route>
         <Route path='/create_course' element={<CreateCourse/>}></Route>
@@ -30,7 +31,6 @@ function App() {
         <Route element={<NotFound/>}></Route>
       </Routes>
     </BrowserRouter>
-
   );
 }
 

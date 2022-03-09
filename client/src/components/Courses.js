@@ -1,36 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
-export default function Index() {
-        const [ results, setResults ] = useState('');
-        async function loader() {
-          try{
-                await axios.get('http://localhost:5000/api/courses').then(
-                response => setResults(response.data)
-            );
-          } catch(error) {
-            console.log(error.message);
-          }
-        };
-        //Passing second argument as setResults stops infinite component mounting/rendering behavior
-        //Re render will only occur if the courses returned from the axios call change
-        useEffect(() => { loader() }, [ setResults ]);
+export default function Courses() {
+    const [ results, setResults ] = useState('');
+    async function Loader() {
+      try{
+          await axios.get('http://localhost:5000/api/courses').then(
+          response => setResults(response.data)
+        );
+      } catch(error) {
+        console.log(error.message);
+      }
+    };
+    //Passing second argument as setResults stops infinite component mounting/rendering behavior
+    //Re render will only occur if the courses returned from the axios call change
+    useEffect(() => { Loader() }, [ setResults ]);
       return (
-        <div id='Index_div'>
-            <header>
-                <div className="wrap header--flex">
-                    <h1 className="header--logo"><a href="/">Courses</a></h1>
-                    <nav>
-                        <ul className="header--signedout">
-                            <li><a href="/sign_up">Sign Up</a></li>
-                            <li><a href="/sign_in">Sign In</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-            <main>
+        <div id='Courses_div'>
                 <div className="wrap main--grid">
-                    <a className="course--module course--link" href="/course_detail">
+                    <a className="course--module course--link" href='/course_detail'>
                         <h2 className="course--label">Course</h2>
                         <h3 className="course--title">Build a Basic Bookcase</h3>
                     </a>
@@ -50,7 +38,6 @@ export default function Index() {
                         </span>
                     </a>
                 </div>
-            </main>
         </div>
       )
 }

@@ -1,7 +1,18 @@
-import { React, Component } from 'react';
+import { React, useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default class CourseDetail extends Component {
-    render() {
+export default function CourseDetail() {
+  const [ results, setResults ] = useState('');
+  async function Loader() {
+    try{
+        await axios.get('http://localhost:5000/api/courses').then(
+        response => setResults(response.data)
+      );
+    } catch(error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => { Loader() }, [ setResults ]);
       return (
           <div id='CourseDetail_div' className='wrap'>
               <h2>Course Detail</h2>
@@ -46,5 +57,4 @@ export default class CourseDetail extends Component {
               </form>
             </div>
           );
-    }
   };
