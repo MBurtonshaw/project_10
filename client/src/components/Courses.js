@@ -1,35 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 export default function Courses() {
-    const [ results, setResults ] = useState('');
-    async function Loader() {
-      try{
-          await axios.get('http://localhost:5000/api/courses').then(
-          response => setResults(response.data)
-        );
-      } catch(error) {
-        console.log(error.message);
+    let data = this.props.data;
+
+    function course_function() {
+      for (let i = 0; i < data.length; i++) {
+      return(
+        <a className="course--module course--link" href={`/course_detail/${data[i].id}`}>
+        <h2 className="course--label">Course</h2>
+        <h3 className="course--title">${data[i].title}</h3>
+        </a>)};
       }
-    };
-    //Passing second argument as setResults stops infinite component mounting/rendering behavior
-    //Re render will only occur if the courses returned from the axios call change
-    useEffect(() => { Loader() }, [ setResults ]);
+
+
       return (
         <div id='Courses_div'>
                 <div className="wrap main--grid">
-                    <a className="course--module course--link" href='/course_detail'>
-                        <h2 className="course--label">Course</h2>
-                        <h3 className="course--title">Build a Basic Bookcase</h3>
-                    </a>
-                    <a className="course--module course--link" href="/course_detail/2">
+                  {course_function}
+                   {/* <a className="course--module course--link" href="/course_detail/2">
                         <h2 className="course--label">Course</h2>
                         <h3 className="course--title">Learn How to Program</h3>
                     </a>
                     <a className="course--module course--link" href="/course_detail/4">
                         <h2 className="course--label">Course</h2>
                         <h3 className="course--title">Learn How to Test Programs</h3>
-                    </a>
+                    </a>*/}
                     <a className="course--module course--add--module" href="/create_course">
                         <span className="course--add--title">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
