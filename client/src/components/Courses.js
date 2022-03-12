@@ -1,14 +1,15 @@
 import React from 'react';
 
-export default function Courses() {
-    let data = this.props.data;
+export default function Courses(props) {
+    let data;
 
     function course_function() {
+      data = props.data;
       for (let i = 0; i < data.length; i++) {
-      return(
+        return(
         <a className="course--module course--link" href={`/course_detail/${data[i].id}`}>
         <h2 className="course--label">Course</h2>
-        <h3 className="course--title">${data[i].title}</h3>
+        <h3 className="course--title">{data[i].title}</h3>
         </a>)};
       }
 
@@ -16,7 +17,7 @@ export default function Courses() {
       return (
         <div id='Courses_div'>
                 <div className="wrap main--grid">
-                  {course_function}
+                  {course_function()}
                    {/* <a className="course--module course--link" href="/course_detail/2">
                         <h2 className="course--label">Course</h2>
                         <h3 className="course--title">Learn How to Program</h3>
