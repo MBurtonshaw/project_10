@@ -18,7 +18,7 @@ function App() {
   async function Loader() {
     try{
         await axios.get('http://localhost:5000/api/courses').then(
-        response => setResults(response.data)
+            response => setResults((response.data).map(data => data))
       );
     } catch(error) {
       console.log(error.message);
@@ -27,12 +27,13 @@ function App() {
   //Passing second argument as setResults stops infinite component mounting/rendering behavior
   //Re render will only occur if the courses returned from the axios call change
   useEffect(() => { Loader() }, [ setResults ]);
+
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route exact path='/' element={<Courses data={results}/>}></Route>
-        <Route path='/course_detail' element={<CourseDetail/>}></Route>
+        <Route path='/course_detail' element={<CourseDetail data={results}/>}></Route>
         <Route path='/course_detail/:id' element={<CourseDetail/>}></Route>
         <Route path='/create_course' element={<CreateCourse/>}></Route>
         <Route path='/forbidden' element={<Forbidden/>}></Route>
