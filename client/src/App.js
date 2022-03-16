@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Courses data={results}/>}></Route>
         <Route path='/course_detail' element={<CourseDetail data={results}/>}></Route>
-        <Route path='/course_detail/:id' element={<CourseDetail/>}></Route>
+        <Route path='/course_detail/:id' element={<CourseDetail data={results}/>}></Route>
         <Route path='/create_course' element={<CreateCourse/>}></Route>
         <Route path='/forbidden' element={<Forbidden/>}></Route>
         <Route path='/not_found' element={<NotFound/>}></Route>
