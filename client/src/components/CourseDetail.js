@@ -7,7 +7,7 @@ export default function CourseDetail(props) {
 //You need to figure out how to iterate over props to get their id properties
 //Then render the page conditionally
 
-  let { data } = props;
+
   const { id } = useParams();
   const [ results, setResults ] = useState('');
 
@@ -23,11 +23,36 @@ export default function CourseDetail(props) {
   };
   
   useEffect(() => { sideLoader() }, [ setResults ]);
-
+  const author_name = `${results.User.firstName} ${results.User.lastName}`;
 
       return(
-        <div>
-          <h1>{results.id}</h1>
-        </div>
+            <div className="wrap">
+                <h2>Course Detail</h2>
+                <form>
+                    <div className="main--flex">
+                        <div>
+                            <h3 className="course--detail--title">Course</h3>
+                            <h4 className="course--name">{results.title}</h4>
+                            <p>By {author_name}</p>
+
+                            <p>{results.description}</p>                            
+                            
+                            
+                            
+                            
+                        </div>
+                        <div>
+                            <h3 className="course--detail--title">Estimated Time</h3>
+                            <p>{results.estimatedTime}</p>
+
+                            <h3 className="course--detail--title">Materials Needed</h3>
+                            
+                              
+                                <ul><li></li></ul>
+                              
+                        </div>
+                    </div>
+                </form>
+            </div>
       );
 }
