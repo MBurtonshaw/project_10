@@ -23,8 +23,9 @@ export default function CourseDetail(props) {
   };
   
   useEffect(() => { sideLoader() }, [ setResults ]);
-  const author_name = `${results.User.firstName} ${results.User.lastName}`;
+  const { User } = results;
 
+  if (User) {
       return(
             <div className="wrap">
                 <h2>Course Detail</h2>
@@ -33,7 +34,7 @@ export default function CourseDetail(props) {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{results.title}</h4>
-                            <p>By {author_name}</p>
+                            
 
                             <p>{results.description}</p>                            
                             
@@ -46,13 +47,15 @@ export default function CourseDetail(props) {
                             <p>{results.estimatedTime}</p>
 
                             <h3 className="course--detail--title">Materials Needed</h3>
-                            
-                              
-                                <ul><li></li></ul>
-                              
+                            <ul className="course--detail--list">
+                                  <li>{results.materialsNeeded}</li>
+                                </ul>
                         </div>
                     </div>
                 </form>
             </div>
       );
+} else {
+  return(<div><h1>Nope</h1></div>);
+}
 }

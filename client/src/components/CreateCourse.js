@@ -4,7 +4,7 @@ export default class CreateCourse extends Component {
     render() {
       return (
         <div id='CreateCourse_div'>
-          <div class="wrap header--flex">
+          <div className="wrap header--flex">
                 <div className="wrap">
                     <h2>Create Course</h2>
                     <div className="validation--errors">
