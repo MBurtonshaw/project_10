@@ -2,7 +2,6 @@ import React from 'react';
 
 export default function Courses(props) {
     let { data } = props;
-    console.log(data);
 
     try{
       if (data) {

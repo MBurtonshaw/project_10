@@ -15,7 +15,7 @@ import axios from 'axios';
 
 function App() {
   const [ results, setResults ] = useState('');
-  async function Loader() {
+  async function mainLoader() {
     try{
         await axios.get('http://localhost:5000/api/courses').then(
             response => setResults((response.data).map(data => data))
@@ -24,14 +24,28 @@ function App() {
       console.log(error.message);
     }
   };
+
+  /*async function sideLoader(id) {
+    const [ sides, setSides ] = useState();
+    try{
+        await axios.get('http://localhost:5000/api/courses/' + id).then(
+            response => setSides((response.data).map(data => data))
+      );
+    } catch(error) {
+      console.log(error.message);
+    }
+  };*/
   //Passing second argument as setResults stops infinite component mounting/rendering behavior
   //Re render will only occur if the courses returned from the axios call change
-  useEffect(() => { Loader() }, [ setResults ]);
+  useEffect(() => { mainLoader() }, [ setResults ]);
 
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        {/* maybe it would be best to put logic here-- create a function that
+        returns the course with the proper id when compared to params, then
+        is passed as props to courseDetail */}
         <Route exact path='/' element={<Courses data={results}/>}></Route>
         <Route path='/course_detail' element={<CourseDetail data={results}/>}></Route>
         <Route path='/course_detail/:id' element={<CourseDetail data={results}/>}></Route>
