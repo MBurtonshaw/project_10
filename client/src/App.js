@@ -1,7 +1,7 @@
 import './App.css';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Header from './components/Header';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
@@ -16,7 +16,8 @@ import axios from 'axios';
 function App() {
   //Setting a 'results' state
   const [ results, setResults ] = useState('');
-
+  const [ descendants, setDescendants ] = useState('');
+  let { id } = useParams();
   //Function to fetch all courses data for home page
   async function mainLoader() {
     try{
@@ -28,9 +29,37 @@ function App() {
     }
   };
 
+  async function sideLoader() {
+    try{
+      return(
+        await axios.get(`http://localhost:5000/api/courses/${id}`).then(
+            response => setDescendants(response.data.course)
+      ).then(
+        console.log('CourseDetail.js: create state, fetch data -- success')
+      ));
+    } catch(error) {
+      console.log(error.message);
+    }
+  };
+
+//Currently set up just to make a connection w the api and return data; url is correct, except id
+  async function update_course() {
+    if (id) {
+    try{
+      //If given an actual id, it seems the request does work. We just arent' authorized to; 401 error
+      await axios.put(`http://localhost:5000/api/courses/${id}`).then(
+          response => console.log(response)
+    );
+    } catch(error) {
+      console.log(error.message);
+    }
+  }
+  };
+
   //Passing second argument as setResults stops infinite component mounting/rendering behavior
   //Re render will only occur if the courses returned from the axios call, change somehow
   useEffect(() => { mainLoader() }, [ setResults ]);
+  useEffect(() => { sideLoader() }, [ setDescendants ]);
 
   /////////////////////////////////////////////////////////////////////////////////////////////
   return (
@@ -38,6 +67,7 @@ function App() {
       <Header />
       <Routes>
         {/* Results passed down to home page as props 'data' */}
+        {/* pass down course thru id to updateCourse and deleteCourse */}
         <Route exact path='/' element={<Courses data={results}/>}></Route>
         <Route path='/course_detail/:id' element={<CourseDetail />}></Route>
         <Route path='/create_course' element={<CreateCourse/>}></Route>
@@ -46,10 +76,12 @@ function App() {
         <Route path='/sign_in' element={<SignIn/>}></Route>
         <Route path='/sign_up' element={<SignUp/>}></Route>
         <Route path='/update_course' element={<UpdateCourse/>}></Route>
+        <Route path='/update_course/:id' element={<UpdateCourse/>}></Route>
         <Route element={<NotFound/>}></Route>
       </Routes>
     </BrowserRouter>
   );
+
 }
 
 export default App;
