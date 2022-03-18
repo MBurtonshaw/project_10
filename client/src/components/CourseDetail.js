@@ -51,7 +51,7 @@ export default function CourseDetail() {
 
   //Checking if the User is present before loading page to account for async functions
   if (User) {
-  
+    try {
     //////////////////////////////////////////////////////////////////////////////////////////////////
       return(
         <div>
@@ -88,7 +88,9 @@ export default function CourseDetail() {
             </div>
           </div>
         );
-    
+    } catch(error) {
+      console.log(error.message)
+    } 
   } else {
     return(<div><h1>Not Found</h1></div>);
   }
