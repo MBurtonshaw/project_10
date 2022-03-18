@@ -35,7 +35,7 @@ function App() {
         await axios.get(`http://localhost:5000/api/courses/${id}`).then(
             response => setDescendants(response.data.course)
       ).then(
-        console.log('CourseDetail.js: create state, fetch data -- success')
+        console.log('App.js: create side-state, fetch data -- success')
       ));
     } catch(error) {
       console.log(error.message);
@@ -43,18 +43,7 @@ function App() {
   };
 
 //Currently set up just to make a connection w the api and return data; url is correct, except id
-  async function update_course() {
-    if (id) {
-    try{
-      //If given an actual id, it seems the request does work. We just arent' authorized to; 401 error
-      await axios.put(`http://localhost:5000/api/courses/${id}`).then(
-          response => console.log(response)
-    );
-    } catch(error) {
-      console.log(error.message);
-    }
-  }
-  };
+
 
   //Passing second argument as setResults stops infinite component mounting/rendering behavior
   //Re render will only occur if the courses returned from the axios call, change somehow

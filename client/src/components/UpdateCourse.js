@@ -1,25 +1,28 @@
 import { React } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+//import { useParams } from 'react-router-dom';
+//import axios from 'axios';
 
 export default function UpdateCourse() {
 
-        let { id } = useParams();
+    //let { id } = useParams();
 
-        async function update_course() {
-            if (id) {
-            try{
-              //Logic missing: right now it should be fetching the correct course, but
-              //you need to figure out a way to capture the text input from the client
-              //and turn that into a JSON object to pass to API in order to update course
-              await axios.put(`http://localhost:5000/api/courses/${id}`).then(
-                  response => console.log(response)
-            );
+    /*async function update_course() {
+        if (id) {
+        try{
+            //Logic missing: right now it should be fetching the correct course, but
+            //you need to figure out a way to capture the text input from the client
+            //and turn that into a JSON object to pass to API in order to update course
+            await axios.put(`http://localhost:5000/api/courses/${id}`).then(
+                response => console.log(response)
+            ).then(console.log('yay'));
             } catch(error) {
               console.log(error.message);
             }
+          } else {
+              return <div><h1>Course not found</h1></div>
           }
-          };
+        };*/
+
       return (
           <div id='UpdateCourse_div' className="wrap header--flex">
             <div className="wrap header--flex">
