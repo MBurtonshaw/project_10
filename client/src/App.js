@@ -14,6 +14,7 @@ import AuthContext from './contexts/AuthContext';
 import withContext from './contexts/Context';
 
 const SignUpWithContext = withContext(SignUp);
+const SignInWithContext = withContext(SignIn);
 
 function App() {
   /////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,20 +23,18 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <AuthContext.Provider value={''}>
         <Routes>
           <Route exact path='/' element={<Courses />}></Route>
           <Route path='/courses/:id' element={<CourseDetail />}></Route>
           <Route path='/courses/:id/update' element={<UpdateCourse/>}></Route>
           <Route path='/courses/:id/delete' element={<UpdateCourse/>}></Route>
           <Route path='/courses/create' element={<CreateCourse/>}></Route>
-          <Route path='/sign_in' element={<SignIn/>}></Route>
+          <Route path='/sign_in' element={<SignInWithContext/>}></Route>
           <Route path='/sign_up' element={<SignUpWithContext/>}></Route>
           <Route path='/forbidden' element={<Forbidden/>}></Route>
           <Route path='/not_found' element={<NotFound/>}></Route>
           <Route element={<NotFound/>}></Route>
         </Routes>
-      </AuthContext.Provider>
     </BrowserRouter>
   );
 

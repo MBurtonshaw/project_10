@@ -4,8 +4,9 @@ import Form from './Form';
 
 export default class UserSignUp extends Component {
   state = {
-    name: '',
-    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
     password: '',
     errors: [],
   }
@@ -36,7 +37,7 @@ export default class UserSignUp extends Component {
                   value={firstName} 
                   onChange={this.change} 
                   placeholder="First Name" />
-                  <input 
+                <input 
                   id="lastName" 
                   name="lastName" 
                   type="text"
@@ -78,10 +79,24 @@ export default class UserSignUp extends Component {
   }
 
   submit = () => {
+    const { context } = this.props;
+    const { firstName, lastName, email, password } = this.state;
+    const user = { firstName, lastName, email, password };
 
+    context.data.createUser(user).then(
+      errors => {
+        if (errors.length) {
+          this.setState({errors});
+        } else {
+          console.log(`Successful creation for ${firstName} ${lastName}`)
+        }
+      }).catch(err => {
+        console.log(err);
+        this.props.history.push('/error')
+      });
   }
 
   cancel = () => {
-
+    this.props.history.push('/');
   }
 }
