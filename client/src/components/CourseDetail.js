@@ -6,8 +6,7 @@ export default function CourseDetail() {
 
   //Destructuring id from url params, and initiating state 'results'
   const { id } = useParams();
-  const [ results, setResults ] = useState('');
-
+  const [ courseDetails, setCourseDetails ] = useState('');
   //Function to fetch data from api based on id param
   //Sets the response to state 'results'
   async function loader() {
@@ -15,9 +14,9 @@ export default function CourseDetail() {
     try{
       return(
         await axios.get(`http://localhost:5000/api/courses/${id}`).then(
-            response => setResults(response.data.course)
+            response => setCourseDetails(response.data.course)
       ).then(
-        console.log('CourseDetail.js: create state, fetch course(id) data -- success')
+        console.log(`CourseDetail.js: set course(${id}) data to state -- success`)
       ));
     } catch(error) {
       console.log(error.message);
@@ -44,10 +43,10 @@ export default function CourseDetail() {
   
   //Using useEffect to call loader function & fetch data
   //Including setResults in the array in order to prevent infinite looping behavior
-  useEffect(() => { loader() }, [ setResults ]);
+  useEffect(() => { loader() }, [ setCourseDetails ]);
 
   //Destructuring the User from results state for easier access to the object
-  const { User } = results;
+  const { User } = courseDetails;
 
   //Checking if the User is present before loading page to account for async functions
   if (User) {
@@ -56,8 +55,8 @@ export default function CourseDetail() {
       return(
         <div>
           <div className="actions--bar">
-            <a className="button" href={`/update_course/${id}`}>Update Course</a>
-            <a className="button" href="#" onClick={() => delete_course()}>Delete Course</a>
+            <a className="button" href={`/courses/${id}/update`}>Update Course</a>
+            <a className="button" href="/" onClick={() => delete_course()}>Delete Course</a>
             <a className="button button-secondary" href="/">Return to List</a>
             </div>
 
@@ -68,18 +67,18 @@ export default function CourseDetail() {
                 <div className="main--flex">
                   <div>
                     <h3 className="course--detail--title">Course</h3>
-                    <h4 className="course--name">{results.title}</h4>
-                    <p>{results.description}</p>                            
+                    <h4 className="course--name">{courseDetails.title}</h4>
+                    <p>{courseDetails.description}</p>                            
                   </div>
 
                   <div>
                     <h3 className="course--detail--title">Estimated Time</h3>
-                    <p>{results.estimatedTime}</p>
+                    <p>{courseDetails.estimatedTime}</p>
                     <h3 className="course--detail--title">Materials Needed</h3>
                     <ul className="course--detail--list">
-                      {results.materialsNeeded.map(material => {
+                      {/*{courseDetails.materialsNeeded.map(material => {
                         return <li> {material} </li>
-                      })}
+                      })}*/}
                     </ul>
                   </div>
                 </div>

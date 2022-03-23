@@ -26,7 +26,7 @@ export default function UpdateCourse() {
       return (
           <div id='UpdateCourse_div' className="wrap header--flex">
             <div className="wrap header--flex">
-                <h1 className="header--logo"><a href="index.html">Courses</a></h1>
+                <h1 className="header--logo"><a href="/">Courses</a></h1>
                 <nav>
                     <ul className="header--signedin">
                         <li>Welcome, Joe Smith!</li>
