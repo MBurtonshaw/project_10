@@ -1,5 +1,5 @@
 
 export default {
-    apiBaseUrl: 'http://localhost:5000/api/courses',
+    apiBaseUrl: 'http://localhost:5000/api',
   };
   

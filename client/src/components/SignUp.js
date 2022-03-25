@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
-export default class UserSignUp extends Component {
+class UserSignUp extends Component {
   state = {
     firstName: '',
     lastName: '',
@@ -12,6 +12,7 @@ export default class UserSignUp extends Component {
   }
 
   render() {
+
     const {
       firstName,
       lastName,
@@ -92,7 +93,7 @@ export default class UserSignUp extends Component {
         }
       }).catch(err => {
         console.log(err);
-        this.props.history.push('/error')
+        this.props.history.push('/not_found')
       });
   }
 
@@ -100,3 +101,5 @@ export default class UserSignUp extends Component {
     this.props.history.push('/');
   }
 }
+
+export default UserSignUp;
