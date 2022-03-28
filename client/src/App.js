@@ -8,12 +8,16 @@ import NotFound from './components/NotFound';
 import Courses from './components/Courses';
 import UserSignIn from './components/SignIn';
 import UserSignUp from './components/SignUp';
+import UserSignOut from './components/SignOut';
 import UpdateCourse from './components/UpdateCourse';
 import React from 'react';
 import withContext, { Provider } from './contexts/Context';
 
-const SignUpWithContext = withContext(UserSignUp);
-const SignInWithContext = withContext(UserSignIn);
+const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+//const CreateCourseWithContext = withContext(CreateCourse);
 
 function App() {
   /////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,13 +28,14 @@ function App() {
       <Provider >
         <Header />
           <Routes>
-            <Route exact path='/' element={<Courses />}></Route>
-            <Route path='/courses/:id' element={<CourseDetail />}></Route>
+            <Route exact path='/' element={<CoursesWithContext />}></Route>
+            <Route path='/courses/:id' element={<CourseDetailWithContext />}></Route>
             <Route path='/courses/:id/update' element={<UpdateCourse/>}></Route>
             <Route path='/courses/:id/delete' element={<UpdateCourse/>}></Route>
             <Route path='/courses/create' element={<CreateCourse/>}></Route>
-            <Route path='/sign_in' element={<SignInWithContext/>}></Route>
-            <Route path='/sign_up' element={<SignUpWithContext/>}></Route>
+            <Route path='/sign_in' element={<UserSignInWithContext/>}></Route>
+            <Route path='/sign_up' element={<UserSignUpWithContext/>}></Route>
+            <Route path='/sign_out' element={<UserSignOut/>}></Route>
             <Route path='/forbidden' element={<Forbidden/>}></Route>
             <Route path='/not_found' element={<NotFound/>}></Route>
             <Route element={<NotFound/>}></Route>
