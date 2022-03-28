@@ -27,10 +27,8 @@ export default function CourseDetail() {
   async function delete_course() {
     if (id) {
     try{
-      return(
         await axios.delete(`http://localhost:5000/api/courses/${id}`).then(
-        console.log('CourseDetail.js: delete course -- success')
-      ));
+        console.log('CourseDetail.js: delete course -- success'));
     } catch(error) {
       console.log(error.message);
     }
@@ -56,7 +54,7 @@ export default function CourseDetail() {
         <div>
           <div className="actions--bar">
             <a className="button" href={`/courses/${id}/update`}>Update Course</a>
-            <a className="button" href="/" onClick={() => delete_course()}>Delete Course</a>
+            <a className="button" onClick={() => delete_course()}>Delete Course</a>
             <a className="button button-secondary" href="/">Return to List</a>
             </div>
 

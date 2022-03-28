@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
+import withNavigation from '../HOCs/Nav';
 
 class UserSignUp extends Component {
   state = {
     firstName: '',
     lastName: '',
-    email: '',
+    emailAddress: '',
     password: '',
     errors: [],
   }
@@ -16,7 +17,7 @@ class UserSignUp extends Component {
     const {
       firstName,
       lastName,
-      email,
+      emailAddress,
       password,
       errors,
     } = this.state;
@@ -46,10 +47,10 @@ class UserSignUp extends Component {
                   onChange={this.change} 
                   placeholder="Last Name" />
                 <input 
-                  id="email" 
-                  name="email" 
+                  id="emailAddress" 
+                  name="emailAddress" 
                   type="text"
-                  value={email} 
+                  value={emailAddress} 
                   onChange={this.change} 
                   placeholder="Email Address" />
                 <input 
@@ -81,25 +82,26 @@ class UserSignUp extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const { firstName, lastName, email, password } = this.state;
-    const user = { firstName, lastName, email, password };
+    const { firstName, lastName, emailAddress, password } = this.state;
+    const user = { firstName, lastName, emailAddress, password };
 
     context.data.createUser(user).then(
       errors => {
         if (errors.length) {
           this.setState({errors});
         } else {
-          console.log(`Successful creation for ${firstName} ${lastName}`)
+          console.log(`Successful creation for ${firstName} ${lastName}`);
+          this.props.navigate('/');
         }
       }).catch(err => {
         console.log(err);
-        this.props.history.push('/not_found')
+        this.props.navigate('/not_found');
       });
   }
 
   cancel = () => {
-    this.props.history.push('/');
+    this.props.navigate('/');
   }
 }
 
-export default UserSignUp;
+export default withNavigation(UserSignUp);

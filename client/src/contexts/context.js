@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Data from '../Data';
+import Data from '../HOCs/Data';
 
 const Context = React.createContext(); 
 
