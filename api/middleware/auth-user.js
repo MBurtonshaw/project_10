@@ -17,6 +17,7 @@ exports.authenticateUser = async (req, res, next) => {
     // by their username (i.e. the user's "key"
     // from the Authorization header).
     if (credentials) {
+        
         const user = await User.findOne({ where: { emailAddress: credentials.name }});
 
     // If a user was successfully retrieved from the data store...

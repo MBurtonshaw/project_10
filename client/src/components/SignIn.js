@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
+import withNavigation from '../HOCs/Nav';
 
-export default class UserSignIn extends Component {
+class UserSignIn extends Component {
   state = {
-    email: '',
+    emailAddress: '',
     password: '',
     errors: [],
   }
 
   render() {
     const {
-      email,
+      emailAddress,
       password,
       errors,
     } = this.state;
@@ -27,10 +28,10 @@ export default class UserSignIn extends Component {
             elements={() => (
               <React.Fragment>
                 <input 
-                  id="email" 
-                  name="email" 
+                  id="emailAddress" 
+                  name="emailAddress" 
                   type="text"
-                  value={email} 
+                  value={emailAddress} 
                   onChange={this.change} 
                   placeholder="Email Address" />
                 <input 
@@ -61,10 +62,30 @@ export default class UserSignIn extends Component {
   }
 
   submit = () => {
-
-  }
+    const { context } = this.props;
+    const { emailAddress, password } = this.state;
+    context.actions.signIn(emailAddress, password).then(
+      user => {
+        if (user === null) {
+          this.setState(()=>{
+            return {errors: ['signin unsuccessful']}
+          });
+        } else {
+          this.setState(()=>{
+            return {
+              emailAddress: emailAddress,
+              password: password
+            }
+          });
+          //this.props.navigate('/');
+          console.log(`Success, ${emailAddress} is logged in`);
+        }
+      }).catch(err => console.log(err.message))
+    };
 
   cancel = () => {
-
+    this.props.navigate('/');
   }
 }
+
+export default withNavigation(UserSignIn);
