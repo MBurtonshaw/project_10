@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import withNavigation from '../HOCs/Nav';
 
-export default function Header() {
+class Header extends Component {
+  render() {
+  const { context } = this.props;
+  const authUser = context.authenticatedUser;
       return (
         <div id='header_div'>
           <HelmetProvider>
@@ -23,17 +28,28 @@ export default function Header() {
                       <div className="wrap header--flex">
                           <h1 className="header--logo"><a href="/">Courses</a></h1>
                           <nav>
-                              <ul className="header--signedout">
+                            {authUser 
+                            ? <React.Fragment>
+                                <span>Welcome, {authUser.user.firstName}! </span>
+                                <Link to='/sign_out' onClick={()=>{this.setState({
+                                  
+                                })}}>Sign Out</Link>
+                              </React.Fragment> 
+                              :
+                                <ul className="header--signedout">
                                   <li><a href="/sign_up">Sign Up</a></li>
                                   <li><a href="/sign_in">Sign In</a></li>
-                              </ul>
+                                </ul>
+                            }
+                              
                           </nav>
                       </div>
                 </header>
               </div>
         
       )
+                          }
 }
 
-
+export default withNavigation(Header);
 

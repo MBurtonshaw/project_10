@@ -18,6 +18,7 @@ const CourseDetailWithContext = withContext(CourseDetail);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 //const CreateCourseWithContext = withContext(CreateCourse);
+const HeaderWithContext = withContext(Header);
 
 function App() {
   /////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <Provider >
-        <Header />
+        <HeaderWithContext />
           <Routes>
             <Route exact path='/' element={<CoursesWithContext />}></Route>
             <Route path='/courses/:id' element={<CourseDetailWithContext />}></Route>

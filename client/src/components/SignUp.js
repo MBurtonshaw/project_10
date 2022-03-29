@@ -91,7 +91,6 @@ class UserSignUp extends Component {
           this.setState({errors});
         } else {
           console.log(`Successful creation for ${firstName} ${lastName}`);
-          this.props.navigate('/');
         }
       }).catch(err => {
         console.log(err);
