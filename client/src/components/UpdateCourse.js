@@ -1,4 +1,5 @@
 import { React } from 'react';
+import Forbidden from './Forbidden';
 //import { useParams } from 'react-router-dom';
 //import axios from 'axios';
 
@@ -32,7 +33,7 @@ export default function UpdateCourse(props) {
                     <nav>
                         <ul className="header--signedin">
                             <li>{`Welcome, ${authenticatedUser.user.firstName}!`}</li>
-                            <li><a href="/sign_out">Sign Out</a></li>
+                            <li><a href="/signout">Sign Out</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -63,6 +64,6 @@ export default function UpdateCourse(props) {
             </div>
         )
         } else {
-            return <h1>Please login to access</h1>
+            return <Forbidden />
         }
 }

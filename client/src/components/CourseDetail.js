@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import NotFound from './NotFound';
 
 export default function CourseDetail() {
 
@@ -86,10 +87,10 @@ export default function CourseDetail() {
             </div>
           </div>
         );
-    } catch( error ) {
-      console.log( error.message )
-    } 
+                    
+      } catch(err) { 
+        console.log(err.message)}
   } else {
-    return( <div><h1>Not Found</h1></div> );
+    return( <NotFound /> );
   }
 }

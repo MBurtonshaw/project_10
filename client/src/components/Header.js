@@ -32,12 +32,12 @@ class Header extends Component {
                             {authUser 
                             ? <React.Fragment>
                                 <span>Welcome, { authUser.user.firstName }! </span>
-                                <Link to='/sign_out' onClick={()=>{}}>Sign Out</Link>
+                                <Link to='/signout' onClick={()=>{}}>Sign Out</Link>
                               </React.Fragment> 
                               :
                                 <ul className="header--signedout">
-                                  <li><a href="/sign_up">Sign Up</a></li>
-                                  <li><a href="/sign_in">Sign In</a></li>
+                                  <li><a href="/signup">Sign Up</a></li>
+                                  <li><a href="/signin">Sign In</a></li>
                                 </ul>
                             }
                               
