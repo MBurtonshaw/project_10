@@ -90,7 +90,9 @@ class UserSignUp extends Component {
         if (errors.length) {
           this.setState({errors});
         } else {
-          console.log(`Successful creation for ${firstName} ${lastName}`);
+            context.actions.signIn(emailAddress, password).then(
+            this.props.navigate('/')
+          );
         }
       }).catch(err => {
         console.log(err);
