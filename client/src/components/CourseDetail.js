@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from './NotFound';
 
-export default function CourseDetail() {
+export default function CourseDetail(props) {
 
   //Destructuring id from url params, and initiating state 'results'
   const { id } = useParams();
@@ -50,8 +50,10 @@ export default function CourseDetail() {
 
   //Checking if the User is present before loading page to account for async functions
   if ( User ) {
+    let owner = props.context.authenticatedUser;
     try {
     //////////////////////////////////////////////////////////////////////////////////////////////////
+    if (owner !== null && owner.id === User.id) {
       return(
         <div>
           <div className="actions--bar">
@@ -87,9 +89,43 @@ export default function CourseDetail() {
             </div>
           </div>
         );
-                    
-      } catch(err) { 
-        console.log(err.message)}
+    } else {
+      return(
+        <div>
+          <div className="actions--bar">
+            <a className="button button-secondary" href="/">Return to List</a>
+          </div>
+
+          <div className="wrap">
+            <h2>Course Detail</h2>
+              <form>
+                <div className="main--flex">
+
+                  <div>
+                    <h3 className="course--detail--title">Course</h3>
+                    <h4 className="course--name">{ courseDetails.title }</h4>
+                    <p>{ courseDetails.description }</p>                            
+                  </div>
+
+                  <div>
+                    <h3 className="course--detail--title">Estimated Time</h3>
+                    <p>{ courseDetails.estimatedTime }</p>
+                    <h3 className="course--detail--title">Materials Needed</h3>
+                    <ul className="course--detail--list">
+                      {/*{courseDetails.materialsNeeded.map(material => {
+                        return <li> {material} </li>
+                      })}*/}
+                    </ul>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        );
+      }
+    } catch(err) { 
+      console.log(err.message)}
   } else {
     return( <NotFound /> );
   }
