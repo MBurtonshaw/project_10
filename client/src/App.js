@@ -1,17 +1,15 @@
+import React from 'react';
 import './App.css';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header';
 import Forbidden from './components/Forbidden';
-import NotFound from './components/NotFound';
 import Courses from './components/Courses';
 import UserSignIn from './components/SignIn';
 import UserSignUp from './components/SignUp';
 import UserSignOut from './components/SignOut';
 import UpdateCourse from './components/UpdateCourse';
-//import PrivateRoute from './HOCs/PrivateRoute';
-import React from 'react';
 import withContext, { Provider } from './contexts/Context';
 
 const CoursesWithContext = withContext(Courses);
