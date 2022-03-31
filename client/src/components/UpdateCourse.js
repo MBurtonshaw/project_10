@@ -31,7 +31,7 @@ export default function UpdateCourse(props) {
                     <h1 className="header--logo"><a href="/">Courses</a></h1>
                     <nav>
                         <ul className="header--signedin">
-                            <li>{`Welcome, ${authenticatedUser}!`}</li>
+                            <li>{`Welcome, ${authenticatedUser.user.firstName}!`}</li>
                             <li><a href="/sign_out">Sign Out</a></li>
                         </ul>
                     </nav>
