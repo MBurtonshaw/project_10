@@ -1,12 +1,13 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-export default function CourseDetail() {
+export default function CourseDetail(props) {
 
   //Destructuring id from url params, and initiating state 'results'
   const { id } = useParams();
   const [ courseDetails, setCourseDetails ] = useState('');
+
   //Function to fetch data from api based on id param
   //Sets the response to state 'results'
   async function loader() {
@@ -18,10 +19,11 @@ export default function CourseDetail() {
       ).then(
         console.log(`CourseDetail.js: set course(${id}) data to state -- success`)
       ));
-    } catch(error) {
+      } catch(error) {
       console.log(error.message);
     }
   }
+  
   };
 
   async function delete_course() {
@@ -77,6 +79,7 @@ export default function CourseDetail() {
                       {/*{courseDetails.materialsNeeded.map(material => {
                         return <li> {material} </li>
                       })}*/}
+                      
                     </ul>
                   </div>
                 </div>

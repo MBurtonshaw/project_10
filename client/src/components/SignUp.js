@@ -63,7 +63,7 @@ class UserSignUp extends Component {
               </React.Fragment>
             )} />
           <p>
-            Already have a user account? <Link to="/signin">Click here</Link> to sign in!
+            Already have a user account? <Link to="/sign_in">Click here</Link> to sign in!
           </p>
         </div>
     );

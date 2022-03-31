@@ -7,6 +7,7 @@ class Header extends Component {
   render() {
   const { context } = this.props;
   const authUser = context.authenticatedUser;
+
       return (
         <div id='header_div'>
           <HelmetProvider>
@@ -31,9 +32,7 @@ class Header extends Component {
                             {authUser 
                             ? <React.Fragment>
                                 <span>Welcome, {authUser.user.firstName}! </span>
-                                <Link to='/sign_out' onClick={()=>{this.setState({
-                                  
-                                })}}>Sign Out</Link>
+                                <Link to='/sign_out' onClick={()=>{}}>Sign Out</Link>
                               </React.Fragment> 
                               :
                                 <ul className="header--signedout">

@@ -77,7 +77,7 @@ class UserSignIn extends Component {
               password: password
             }
           });
-          //this.props.navigate('/');
+          this.props.navigate('/');
           console.log(`Success, ${emailAddress} is logged in`);
         }
       }).catch(err => console.log(err.message))
