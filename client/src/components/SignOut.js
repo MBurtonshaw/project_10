@@ -1,5 +1,8 @@
 import React from 'react';
+import { useNavigate, Redirect } from 'react-router-dom';
 
-export default function SignOut() {
-    return <h1>Hello</h1>
+export default function UserSignOut({context}) {
+    
+    context.actions.signOut();
+    return (useNavigate('/'));
 }
