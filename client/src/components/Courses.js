@@ -3,25 +3,26 @@ import axios from 'axios';
 
 export default function Courses() {
 
-    //Setting state w a hook
-    const [ courseList, setCourseList] = useState(['']);
+  //Setting state w a hook
+  const [ courseList, setCourseList] = useState([ '' ]);
 
-    async function loader() {
-      try{
-          await axios.get('http://localhost:5000/api/courses').then(
-              response => setCourseList((response.data).map(data => data))
-        ).then( console.log('Courses.js: courses data saved to state -- success')
-        )} catch(error) {
-        console.log(error.message);
+  async function loader() {
+    try{
+      await axios.get( 'http://localhost:5000/api/courses' ).then(
+        response => setCourseList(( response.data ).map( data => data ))
+      ).then(
+          console.log( 'Courses.js: courses data saved to state -- success' )
+        )} catch( error ) {
+        console.log( error.message );
       }
     };  
 
 
-    useEffect(() => { loader() }, [ setCourseList ]);
+    useEffect( () => { loader() }, [ setCourseList ]);
 
     try {
       //Conditional statement to check that App is passing down props
-      if (courseList) {
+      if ( courseList ) {
         
     //////////////////////////////////////////////////////////////////////////////////////////////////
         return (
@@ -32,11 +33,11 @@ export default function Courses() {
                   Adding an index to enable a key property
                   Dynamically adding course info */}
               {
-                courseList.map( (course, index) => 
-                  <div key={index}>
-                    <a className="course--module course--link" href={`/courses/${course.id}`}>
+                courseList.map( ( course, index ) => 
+                  <div key={ index }>
+                    <a className="course--module course--link" href={ `/courses/${ course.id }` }>
                     <h2 className="course--label">Course</h2>
-                    <h3 className="course--title">{course.title}</h3>
+                    <h3 className="course--title">{ course.title }</h3>
                     </a>
                   </div> )
               }
@@ -67,7 +68,7 @@ export default function Courses() {
                 </div>
               </div>
             )}
-      } catch (error) {
-          console.log(error.message);
+      } catch ( error ) {
+          console.log( error.message );
         }
   }

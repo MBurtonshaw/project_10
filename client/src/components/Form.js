@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Form (props) {
+export default function Form ( props ) {
   const {
     cancel,
     errors,
@@ -9,24 +9,24 @@ export default function Form (props) {
     elements,
   } = props;
 
-  function handleSubmit(event) {
+  function handleSubmit( event ) {
     event.preventDefault();
     submit();
   }
 
-  function handleCancel(event) {
+  function handleCancel( event ) {
     event.preventDefault();
     cancel();
   }
 
   return (
     <div>
-      <ErrorsDisplay errors={errors} />
-      <form onSubmit={handleSubmit}>
-        {elements()}
+      <ErrorsDisplay errors={ errors } />
+      <form onSubmit={ handleSubmit }>
+        { elements() }
         <div className="pad-bottom">
-          <button className="button" type="submit">{submitButtonText}</button>
-          <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
+          <button className="button" type="submit">{ submitButtonText }</button>
+          <button className="button button-secondary" onClick={ handleCancel }>Cancel</button>
         </div>
       </form>
     </div>
@@ -36,13 +36,13 @@ export default function Form (props) {
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 
-  if (errors.length) {
+  if ( errors.length ) {
     errorsDisplay = (
       <div>
         <h2 className="validation--errors--label">Validation errors</h2>
         <div className="validation-errors">
           <ul>
-            {errors.map((error, i) => <li key={i}>{error}</li>)}
+            { errors.map(( error, i ) => <li key={ i }>{ error }</li>) }
           </ul>
         </div>
       </div>

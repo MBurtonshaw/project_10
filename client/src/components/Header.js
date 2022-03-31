@@ -31,7 +31,7 @@ class Header extends Component {
                           <nav>
                             {authUser 
                             ? <React.Fragment>
-                                <span>Welcome, {authUser.user.firstName}! </span>
+                                <span>Welcome, { authUser.user.firstName }! </span>
                                 <Link to='/sign_out' onClick={()=>{}}>Sign Out</Link>
                               </React.Fragment> 
                               :
@@ -50,5 +50,5 @@ class Header extends Component {
                           }
 }
 
-export default withNavigation(Header);
+export default withNavigation( Header );
 

@@ -21,9 +21,9 @@ class UserSignIn extends Component {
         <div className="form--centered">
           <h2>Sign In</h2>
           <Form 
-            cancel={this.cancel}
-            errors={errors}
-            submit={this.submit}
+            cancel={ this.cancel }
+            errors={ errors }
+            submit={ this.submit }
             submitButtonText="Sign In"
             elements={() => (
               <React.Fragment>
@@ -31,15 +31,15 @@ class UserSignIn extends Component {
                   id="emailAddress" 
                   name="emailAddress" 
                   type="text"
-                  value={emailAddress} 
-                  onChange={this.change} 
+                  value={ emailAddress } 
+                  onChange={ this.change } 
                   placeholder="Email Address" />
                 <input 
                   id="password" 
                   name="password"
                   type="password"
-                  value={password} 
-                  onChange={this.change} 
+                  value={ password } 
+                  onChange={ this.change } 
                   placeholder="Password" />                
               </React.Fragment>
             )} />
@@ -50,7 +50,7 @@ class UserSignIn extends Component {
     );
   }
 
-  change = (event) => {
+  change = ( event ) => {
     const name = event.target.name;
     const value = event.target.value;
 
@@ -64,11 +64,11 @@ class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
-    context.actions.signIn(emailAddress, password).then(
+    context.actions.signIn( emailAddress, password ).then(
       user => {
         if (user === null) {
           this.setState(()=>{
-            return {errors: ['signin unsuccessful']}
+            return { errors: ['signin unsuccessful'] }
           });
         } else {
           this.setState(()=>{
@@ -77,15 +77,15 @@ class UserSignIn extends Component {
               password: password
             }
           });
-          this.props.navigate('/');
-          console.log(`Success, ${emailAddress} is logged in`);
+          this.props.navigate( '/' );
+          console.log( `Success, ${ emailAddress } is logged in` );
         }
-      }).catch(err => console.log(err.message))
+      }).catch( err => console.log( err.message ) )
     };
 
   cancel = () => {
-    this.props.navigate('/');
+    this.props.navigate( '/' );
   }
 }
 
-export default withNavigation(UserSignIn);
+export default withNavigation( UserSignIn );
