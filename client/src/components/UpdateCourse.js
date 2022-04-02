@@ -1,11 +1,29 @@
-import { React } from 'react';
+import { React, useState, useEffect } from 'react';
 import Forbidden from './Forbidden';
-//import { useParams } from 'react-router-dom';
-//import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+const ReactMarkdown = require('react-markdown');
 
 export default function UpdateCourse(props) {
 
     const authenticatedUser = props.context.authenticatedUser;
+    const { id } = useParams();
+    const [ currentUserId, setCurrentUserId ] = useState('');
+
+    async function loader() {
+        if (id) {
+          try{
+            return(
+              await axios.get(`http://localhost:5000/api/courses/${id}`).then(
+                  response => setCurrentUserId(response.data.course.userId)
+            ).then(
+              console.log(`CourseDetail.js: set course(${id}) data to state -- success`)
+            ));
+          } catch(error) {
+            console.log(error.message);
+          }
+        }
+      };
 
     //let { id } = useParams();
 
@@ -25,8 +43,11 @@ export default function UpdateCourse(props) {
               return <div><h1>Course not found</h1></div>
           }
         };*/
-        if (authenticatedUser !== null) {
-        return (
+        useEffect(() => { loader() }, [ setCurrentUserId ]);
+
+        if (authenticatedUser !== null && authenticatedUser.user.id === currentUserId) {
+       
+            return (
             <div id='UpdateCourse_div' className="wrap header--flex">
                 <div className="wrap header--flex">
                     <h1 className="header--logo"><a href="/">Courses</a></h1>
@@ -61,9 +82,10 @@ export default function UpdateCourse(props) {
                             <button className="button" type="submit">Update Course</button><button className="button button-secondary" href='/'>Cancel</button>
                         </form>
                     </div>
+     
             </div>
         )
-        } else {
+                   } else {
             return <Forbidden />
         }
 }

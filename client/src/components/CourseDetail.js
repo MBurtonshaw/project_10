@@ -51,9 +51,10 @@ export default function CourseDetail(props) {
   //Checking if the User is present before loading page to account for async functions
   if ( User ) {
     let owner = props.context.authenticatedUser;
+    
     try {
     //////////////////////////////////////////////////////////////////////////////////////////////////
-    if (owner !== null && owner.id === User.id) {
+    if (owner !== null && owner.user.id === User.id) {
       return(
         <div>
           <div className="actions--bar">
