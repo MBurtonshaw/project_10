@@ -32,7 +32,7 @@ class Header extends Component {
                             {authUser 
                             ? <React.Fragment>
                                 <span>Welcome, { authUser.user.firstName }! </span>
-                                <Link to='/signout' onClick={()=>{}}>Sign Out</Link>
+                                <Link to='/signout' onClick={ ()=>{} }>Sign Out</Link>
                               </React.Fragment> 
                               :
                                 <ul className="header--signedout">

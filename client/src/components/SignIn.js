@@ -25,7 +25,7 @@ class UserSignIn extends Component {
             errors={ errors }
             submit={ this.submit }
             submitButtonText="Sign In"
-            elements={() => (
+            elements={ () => (
               <React.Fragment>
                 <input 
                   id="emailAddress" 
@@ -56,7 +56,7 @@ class UserSignIn extends Component {
 
     this.setState(() => {
       return {
-        [name]: value
+        [ name ]: value
       };
     });
   }
@@ -66,12 +66,12 @@ class UserSignIn extends Component {
     const { emailAddress, password } = this.state;
     context.actions.signIn( emailAddress, password ).then(
       user => {
-        if (user === null) {
-          this.setState(()=>{
-            return { errors: ['signin unsuccessful'] }
+        if ( user === null ) {
+          this.setState( ()=>{
+            return { errors: [ 'signin unsuccessful' ] }
           });
         } else {
-          this.setState(()=>{
+          this.setState( ()=>{
             return {
               emailAddress: emailAddress,
               password: password

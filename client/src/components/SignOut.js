@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UserSignOut({ context }) {
     const navigate = useNavigate();
-    useEffect(()=>{
+    useEffect( ()=>{
         context.actions.signOut();
-        navigate('/');
+        navigate( '/' );
     }, []);
     return null;
 }

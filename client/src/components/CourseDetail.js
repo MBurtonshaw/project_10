@@ -2,8 +2,9 @@ import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from './NotFound';
+import MarkdownToHtml from '../HOCs/Markdown';
 
-export default function CourseDetail(props) {
+export default function CourseDetail( props ) {
 
   //Destructuring id from url params, and initiating state 'results'
   const { id } = useParams();
@@ -12,25 +13,25 @@ export default function CourseDetail(props) {
   //Function to fetch data from api based on id param
   //Sets the response to state 'results'
   async function loader() {
-    if (id) {
+    if ( id ) {
       try{
         return(
-          await axios.get(`http://localhost:5000/api/courses/${id}`).then(
-              response => setCourseDetails(response.data.course)
+          await axios.get( `http://localhost:5000/api/courses/${ id }` ).then(
+              response => setCourseDetails( response.data.course )
         ));
-      } catch(error) {
-        console.log(error.message);
+      } catch( error ) {
+        console.log( error.message );
       }
     }
   };
 
   async function delete_course() {
-    if (id) {
+    if ( id ) {
       try{
-          await axios.delete(`http://localhost:5000/api/courses/${id}`).then(
-          console.log('CourseDetail.js: delete course -- success'));
-      } catch(error) {
-        console.log(error.message);
+          await axios.delete( `http://localhost:5000/api/courses/${ id }` ).then(
+          console.log( 'CourseDetail.js: delete course -- success' ));
+      } catch( error ) {
+        console.log( error.message );
       }
     } else {
       return <NotFound />
@@ -47,7 +48,7 @@ export default function CourseDetail(props) {
   
 
   //Checking if the User is present before loading page to account for async functions
-  if (courseDetails !== null) {
+  if ( courseDetails !== null ) {
     const { User } = courseDetails;
     if ( User ) {
       let owner = props.context.authenticatedUser;
@@ -71,7 +72,7 @@ export default function CourseDetail(props) {
                     <div>
                       <h3 className="course--detail--title">Course</h3>
                       <h4 className="course--name">{ courseDetails.title }</h4>
-                      <p>{ courseDetails.description }</p>                            
+                      { MarkdownToHtml(`${courseDetails.description}`) }                        
                     </div>
 
                     <div>
@@ -79,9 +80,7 @@ export default function CourseDetail(props) {
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
                       <ul className="course--detail--list">
-                        {/*{courseDetails.materialsNeeded.map(material => {
-                          return <li> {material} </li>
-                        })}*/}
+                        <li>{ MarkdownToHtml(`${courseDetails.materialsNeeded}`) }</li>
                       </ul>
                     </div>
 
@@ -105,7 +104,7 @@ export default function CourseDetail(props) {
                     <div>
                       <h3 className="course--detail--title">Course</h3>
                       <h4 className="course--name">{ courseDetails.title }</h4>
-                      <p>{ courseDetails.description }</p>                            
+                      { MarkdownToHtml(`${courseDetails.description}`) }                         
                     </div>
 
                     <div>
@@ -113,9 +112,7 @@ export default function CourseDetail(props) {
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
                       <ul className="course--detail--list">
-                        {/*{courseDetails.materialsNeeded.map(material => {
-                          return <li> {material} </li>
-                        })}*/}
+                        <li>{ MarkdownToHtml(`${ courseDetails.materialsNeeded }`) }</li>
                       </ul>
                     </div>
 
@@ -126,7 +123,7 @@ export default function CourseDetail(props) {
           );
         }
       } catch(err) { 
-        console.log(err.message)}
+        console.log( err.message )}
     } else {
       return <NotFound />
     }

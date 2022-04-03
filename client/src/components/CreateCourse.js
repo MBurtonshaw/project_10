@@ -4,7 +4,7 @@ import SignIn from './SignIn';
 
 class CreateCourse extends Component {
     render() {
-        if (this.props.context.authenticatedUser !== null) {
+        if ( this.props.context.authenticatedUser !== null ) {
         return (
             <div id='CreateCourse_div'>
             <div className="wrap header--flex">
@@ -33,7 +33,8 @@ class CreateCourse extends Component {
                             <input id="estimatedTime" name="estimatedTime" type="text" defaultValue=""/>
 
                             <label htmlFor="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
+                            <textarea id="materialsNeeded" name="materialsNeeded">
+                            </textarea>
                         </div>
                     </div>
                     <button className="button" type="submit">Create Course</button><button className="button button-secondary" href='index.html'>Cancel</button>
@@ -43,9 +44,9 @@ class CreateCourse extends Component {
             </div>
             )
         } else {
-            return(this.props.navigate('/signin'));
+            return <SignIn />
         }
     }
 }
 
-export default withNavigation(CreateCourse);
+export default withNavigation( CreateCourse );
