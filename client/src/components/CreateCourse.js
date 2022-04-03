@@ -1,7 +1,8 @@
 import { React, Component } from 'react';
-import Forbidden from './Forbidden';
+import withNavigation from '../HOCs/Nav';
+import SignIn from './SignIn';
 
-export default class CreateCourse extends Component {
+class CreateCourse extends Component {
     render() {
         if (this.props.context.authenticatedUser !== null) {
         return (
@@ -42,7 +43,9 @@ export default class CreateCourse extends Component {
             </div>
             )
         } else {
-            return <Forbidden />
+            return(this.props.navigate('/signin'));
         }
     }
 }
+
+export default withNavigation(CreateCourse);

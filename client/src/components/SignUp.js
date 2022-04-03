@@ -91,7 +91,7 @@ class UserSignUp extends Component {
           this.setState({errors});
         } else {
             context.actions.signIn(emailAddress, password).then(
-            this.props.navigate('/')
+            this.props.navigate(-1)
           );
         }
       }).catch(err => {

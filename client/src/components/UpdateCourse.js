@@ -2,9 +2,10 @@ import { React, useState, useEffect } from 'react';
 import Forbidden from './Forbidden';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import withNavigation from '../HOCs/Nav';
 const ReactMarkdown = require('react-markdown');
 
-export default function UpdateCourse(props) {
+function UpdateCourse(props) {
 
     const authenticatedUser = props.context.authenticatedUser;
     const { id } = useParams();
@@ -89,3 +90,5 @@ export default function UpdateCourse(props) {
             return <Forbidden />
         }
 }
+
+export default withNavigation(UpdateCourse);

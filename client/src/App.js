@@ -12,6 +12,7 @@ import UserSignOut from './components/SignOut';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 import withContext, { Provider } from './contexts/Context';
+import MarkdownToHtml from './components/Markdown';
 
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
@@ -32,6 +33,7 @@ function App() {
     <BrowserRouter>
       <Provider >
         <HeaderWithContext />
+        {MarkdownToHtml('Testing markdown function')}
           <Routes>
             <Route exact path='/' element={<CoursesWithContext />}></Route>
             <Route path='/courses/create' element={<CreateCourseWithContext/>}></Route>

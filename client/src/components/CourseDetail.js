@@ -17,8 +17,6 @@ export default function CourseDetail(props) {
         return(
           await axios.get(`http://localhost:5000/api/courses/${id}`).then(
               response => setCourseDetails(response.data.course)
-        ).then(
-          console.log(`CourseDetail.js: set course(${id}) data to state -- success`)
         ));
       } catch(error) {
         console.log(error.message);
@@ -35,7 +33,7 @@ export default function CourseDetail(props) {
         console.log(error.message);
       }
     } else {
-      return <div><h1>Not found</h1></div>
+      return <NotFound />
     }
   };
 
@@ -46,88 +44,93 @@ export default function CourseDetail(props) {
   useEffect(() => { loader() }, [ setCourseDetails ]);
 
   //Destructuring the User from results state for easier access to the object
-  const { User } = courseDetails;
+  
 
   //Checking if the User is present before loading page to account for async functions
-  if ( User ) {
-    let owner = props.context.authenticatedUser;
-    
-    try {
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    if (owner !== null && owner.user.id === User.id) {
-      return(
-        <div>
-          <div className="actions--bar">
-            <a className="button" href={ `/courses/${id}/update` }>Update Course</a>
-            <a className="button" onClick={ () => delete_course() }>Delete Course</a>
-            <a className="button button-secondary" href="/">Return to List</a>
-          </div>
-
-          <div className="wrap">
-            <h2>Course Detail</h2>
-              <form>
-                <div className="main--flex">
-
-                  <div>
-                    <h3 className="course--detail--title">Course</h3>
-                    <h4 className="course--name">{ courseDetails.title }</h4>
-                    <p>{ courseDetails.description }</p>                            
-                  </div>
-
-                  <div>
-                    <h3 className="course--detail--title">Estimated Time</h3>
-                    <p>{ courseDetails.estimatedTime }</p>
-                    <h3 className="course--detail--title">Materials Needed</h3>
-                    <ul className="course--detail--list">
-                      {/*{courseDetails.materialsNeeded.map(material => {
-                        return <li> {material} </li>
-                      })}*/}
-                    </ul>
-                  </div>
-
-                </div>
-              </form>
+  if (courseDetails !== null) {
+    const { User } = courseDetails;
+    if ( User ) {
+      let owner = props.context.authenticatedUser;
+      
+      try {
+      //////////////////////////////////////////////////////////////////////////////////////////////////
+      if (owner !== null && owner.user.id === User.id) {
+        return(
+          <div>
+            <div className="actions--bar">
+              <a className="button" href={ `/courses/${id}/update` }>Update Course</a>
+              <a className="button" onClick={ () => delete_course() }>Delete Course</a>
+              <a className="button button-secondary" href="/">Return to List</a>
             </div>
-          </div>
-        );
+
+            <div className="wrap">
+              <h2>Course Detail</h2>
+                <form>
+                  <div className="main--flex">
+
+                    <div>
+                      <h3 className="course--detail--title">Course</h3>
+                      <h4 className="course--name">{ courseDetails.title }</h4>
+                      <p>{ courseDetails.description }</p>                            
+                    </div>
+
+                    <div>
+                      <h3 className="course--detail--title">Estimated Time</h3>
+                      <p>{ courseDetails.estimatedTime }</p>
+                      <h3 className="course--detail--title">Materials Needed</h3>
+                      <ul className="course--detail--list">
+                        {/*{courseDetails.materialsNeeded.map(material => {
+                          return <li> {material} </li>
+                        })}*/}
+                      </ul>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          );
+      } else {
+        return(
+          <div>
+            <div className="actions--bar">
+              <a className="button button-secondary" href="/">Return to List</a>
+            </div>
+
+            <div className="wrap">
+              <h2>Course Detail</h2>
+                <form>
+                  <div className="main--flex">
+
+                    <div>
+                      <h3 className="course--detail--title">Course</h3>
+                      <h4 className="course--name">{ courseDetails.title }</h4>
+                      <p>{ courseDetails.description }</p>                            
+                    </div>
+
+                    <div>
+                      <h3 className="course--detail--title">Estimated Time</h3>
+                      <p>{ courseDetails.estimatedTime }</p>
+                      <h3 className="course--detail--title">Materials Needed</h3>
+                      <ul className="course--detail--list">
+                        {/*{courseDetails.materialsNeeded.map(material => {
+                          return <li> {material} </li>
+                        })}*/}
+                      </ul>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          );
+        }
+      } catch(err) { 
+        console.log(err.message)}
     } else {
-      return(
-        <div>
-          <div className="actions--bar">
-            <a className="button button-secondary" href="/">Return to List</a>
-          </div>
-
-          <div className="wrap">
-            <h2>Course Detail</h2>
-              <form>
-                <div className="main--flex">
-
-                  <div>
-                    <h3 className="course--detail--title">Course</h3>
-                    <h4 className="course--name">{ courseDetails.title }</h4>
-                    <p>{ courseDetails.description }</p>                            
-                  </div>
-
-                  <div>
-                    <h3 className="course--detail--title">Estimated Time</h3>
-                    <p>{ courseDetails.estimatedTime }</p>
-                    <h3 className="course--detail--title">Materials Needed</h3>
-                    <ul className="course--detail--list">
-                      {/*{courseDetails.materialsNeeded.map(material => {
-                        return <li> {material} </li>
-                      })}*/}
-                    </ul>
-                  </div>
-
-                </div>
-              </form>
-            </div>
-          </div>
-        );
-      }
-    } catch(err) { 
-      console.log(err.message)}
+      return <NotFound />
+    }
   } else {
-    return( <NotFound /> );
+    return <NotFound />
   }
 }
