@@ -11,7 +11,7 @@ export default function CourseDetail( props ) {
   const [ courseDetails, setCourseDetails ] = useState('');
 
   //Function to fetch data from api based on id param
-  //Sets the response to state 'results'
+  //Sets the response to state 'courseDetails'
   async function loader() {
     if ( id ) {
       try{
@@ -25,6 +25,7 @@ export default function CourseDetail( props ) {
     }
   };
 
+  //function to fetch a course by id, then making a delete call to the api
   async function delete_course() {
     if ( id ) {
       try{
@@ -41,20 +42,21 @@ export default function CourseDetail( props ) {
 
   
   //Using useEffect to call loader function & fetch data
-  //Including setResults in the array in order to prevent infinite looping behavior
+  //Including setCourseDetails in the array in order to prevent infinite looping behavior
   useEffect( () => { loader() }, [ setCourseDetails ] );
 
-  //Destructuring the User from results state for easier access to the object
-  
-
-  //Checking if the User is present before loading page to account for async functions
   if ( courseDetails !== null ) {
+      //Destructuring the User from results state for easier access to the object
     const { User } = courseDetails;
+    //Checking if the User is present before loading page to account for async functions
     if ( User ) {
       let owner = props.context.authenticatedUser;
       
       try {
       //////////////////////////////////////////////////////////////////////////////////////////////////
+      //Checking if the user is the course owner
+      //If so, they have access to update & delete the course. Otherwise component is returned
+      //without those options
       if ( owner !== null && owner.user.id === User.id ) {
         return(
           <div>
@@ -72,6 +74,7 @@ export default function CourseDetail( props ) {
                     <div>
                       <h3 className="course--detail--title">Course</h3>
                       <h4 className="course--name">{ courseDetails.title }</h4>
+                      {/*rendering course description w markdown*/}
                       {MarkdownToHtml( `${ courseDetails.description }` )}                        
                     </div>
 
@@ -80,6 +83,7 @@ export default function CourseDetail( props ) {
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
                       <ul className="course--detail--list">
+                        {/*rendering course materials w markdown*/}
                         <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` )}</li>
                       </ul>
                     </div>
@@ -104,6 +108,7 @@ export default function CourseDetail( props ) {
                     <div>
                       <h3 className="course--detail--title">Course</h3>
                       <h4 className="course--name">{ courseDetails.title }</h4>
+                      {/*rendering course description w markdown*/}
                       { MarkdownToHtml( `${ courseDetails.description }` ) }                         
                     </div>
 
@@ -112,6 +117,7 @@ export default function CourseDetail( props ) {
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
                       <ul className="course--detail--list">
+                        {/*rendering course materials w markdown*/}
                         <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` ) }</li>
                       </ul>
                     </div>

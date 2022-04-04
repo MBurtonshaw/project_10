@@ -25,6 +25,7 @@ class UserSignIn extends Component {
             errors={ errors }
             submit={ this.submit }
             submitButtonText="Sign In"
+            //Render prop to fill in the body of the form
             elements={ () => (
               <React.Fragment>
                 <input 
@@ -50,6 +51,7 @@ class UserSignIn extends Component {
     );
   }
 
+  //Sets user input to state as it's typed, before submit
   change = ( event ) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -61,6 +63,7 @@ class UserSignIn extends Component {
     });
   }
 
+  //Function to submit the form based on signIn() from ./context, and user data from state
   submit = () => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
@@ -77,6 +80,7 @@ class UserSignIn extends Component {
               password: password
             }
           });
+          //Navigate to previous page when signed in
           this.props.navigate( -1 );
         }
       }).catch( err => console.log( err.message ))

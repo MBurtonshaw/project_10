@@ -15,6 +15,7 @@ export default function Courses( props ) {
     }
   }
   
+  //function to fetch data from api/courses then mapping that data to state
   async function loader() {
     try{
       await axios.get( 'http://localhost:5000/api/courses' ).then(
@@ -26,7 +27,7 @@ export default function Courses( props ) {
       }
     };  
 
-
+    //Loader function should execute whenever the Courses component renders
     useEffect( () => { loader() }, [ setCourseList ]);
 
     try {

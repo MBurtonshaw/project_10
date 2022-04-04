@@ -7,17 +7,18 @@ import withNavigation from '../HOCs/Nav';
 function UpdateCourse( props ) {
 
     const authenticatedUser = props.context.authenticatedUser;
+    //Getting id from url params
     const { id } = useParams();
+    //Initiating state
     const [ currentUserId, setCurrentUserId ] = useState('');
 
+    //Function to get current user's ID set to state
     async function loader() {
         if ( id ) {
           try{
             return(
               await axios.get( `http://localhost:5000/api/courses/${ id }` ).then(
                   response => setCurrentUserId(response.data.course.userId)
-            ).then(
-              console.log( `CourseDetail.js: set course(${ id }) data to state -- success` )
             ));
           } catch( error ) {
             console.log( error.message );
@@ -47,7 +48,7 @@ function UpdateCourse( props ) {
 
         if ( authenticatedUser !== null && authenticatedUser.user.id === currentUserId ) {
        
-            return (
+          return (
             <div id='UpdateCourse_div' className="wrap header--flex">
                 <div className="wrap header--flex">
                     <h1 className="header--logo"><a href="/">Courses</a></h1>

@@ -10,6 +10,7 @@ class Header extends Component {
 
       return (
         <div id='header_div'>
+          {/*Using Helmet to supply meta data*/}
           <HelmetProvider>
             <Helmet>
               <meta charset="UTF-8"></meta>
@@ -29,6 +30,8 @@ class Header extends Component {
                       <div className="wrap header--flex">
                           <h1 className="header--logo"><a href="/">Courses</a></h1>
                           <nav>
+                            {/*Ternary operator that welcomes user and supplies a signout option when signed in*/}
+                            {/*Otherwise 'sign-in' & 'sign-up' are displayed*/}
                             {authUser 
                             ? <React.Fragment>
                                 <span>Welcome, { authUser.user.firstName }! </span>

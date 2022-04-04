@@ -30,6 +30,7 @@ class UserSignUp extends Component {
             errors={ errors }
             submit={ this.submit }
             submitButtonText="Sign Up"
+            //Render prop to fill in the body of the form
             elements={ () => (
               <React.Fragment>
                 <input 
@@ -69,6 +70,7 @@ class UserSignUp extends Component {
     );
   }
 
+  //Sets state based on user input before submit
   change = ( event ) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -81,16 +83,19 @@ class UserSignUp extends Component {
   }
 
   submit = () => {
+    //Deconstructing variables from props & state and setting them to 'user' variable
     const { context } = this.props;
     const { firstName, lastName, emailAddress, password } = this.state;
     const user = { firstName, lastName, emailAddress, password };
 
+    //Executing createUser function from Data.js using the above 'user' variable
     context.data.createUser( user ).then(
       errors => {
         if ( errors.length ) {
           this.setState({ errors });
         } else {
             context.actions.signIn( emailAddress, password ).then(
+            //navigate back to previous page when signed up
             this.props.navigate( -1 )
           );
         }

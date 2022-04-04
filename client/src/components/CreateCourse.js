@@ -6,6 +6,8 @@ class CreateCourse extends Component {
 
     render( props ) {
 
+        //If there's an authenticated user, display the component
+        //Otherwise, redirect to /signin
         if ( this.props.context.authenticatedUser !== null ) {
         return (
             <div id='CreateCourse_div'>
