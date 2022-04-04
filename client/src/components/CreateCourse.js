@@ -4,7 +4,7 @@ import SignIn from './SignIn';
 
 class CreateCourse extends Component {
 
-    render(props) {
+    render( props ) {
 
         if ( this.props.context.authenticatedUser !== null ) {
         return (
@@ -46,7 +46,7 @@ class CreateCourse extends Component {
             </div>
             )
         } else {
-            props.navigate('/signin');
+            props.navigate( '/signin' );
         }
     }
 }

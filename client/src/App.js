@@ -13,15 +13,15 @@ import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 import withContext, { Provider } from './contexts/Context';
 
-const CoursesWithContext = withContext(Courses);
-const CourseDetailWithContext = withContext(CourseDetail);
-const CreateCourseWithContext = withContext(CreateCourse);
-const UserSignUpWithContext = withContext(UserSignUp);
-const UserSignInWithContext = withContext(UserSignIn);
-const UpdateCourseWithContext = withContext(UpdateCourse);
-const UserSignOutWithContext = withContext(UserSignOut);
-//const CreateCourseWithContext = withContext(CreateCourse);
-const HeaderWithContext = withContext(Header);
+const CoursesWithContext = withContext( Courses );
+const CourseDetailWithContext = withContext( CourseDetail );
+const CreateCourseWithContext = withContext( CreateCourse );
+const UserSignUpWithContext = withContext( UserSignUp );
+const UserSignInWithContext = withContext( UserSignIn );
+const UpdateCourseWithContext = withContext( UpdateCourse );
+const UserSignOutWithContext = withContext( UserSignOut );
+//const CreateCourseWithContext = withContext( CreateCourse );
+const HeaderWithContext = withContext( Header );
 
 
 function App() {
@@ -33,20 +33,19 @@ function App() {
       <Provider >
         <HeaderWithContext />
           <Routes>
-            <Route exact path='/' element={<CoursesWithContext />}></Route>
-            <Route path='/courses/create' element={<CreateCourseWithContext/>}></Route>
-            <Route path='/courses/:id' element={<CourseDetailWithContext/>}></Route>
-            <Route path='/courses/:id/update' element={<UpdateCourseWithContext/>}></Route>
-            <Route path='/signin' element={<UserSignInWithContext/>}></Route>
-            <Route path='/signup' element={<UserSignUpWithContext/>}></Route>
-            <Route path='/signout' element={<UserSignOutWithContext/>}></Route>
-            <Route path='/forbidden' element={<Forbidden/>}></Route>
-            <Route path='*' element={<NotFound/>}></Route>
+            <Route exact path='/' element={ <CoursesWithContext/> }></Route>
+            <Route path='/courses/create' element={ <CreateCourseWithContext/> }></Route>
+            <Route path='/courses/:id' element={ <CourseDetailWithContext/> }></Route>
+            <Route path='/courses/:id/update' element={ <UpdateCourseWithContext/> }></Route>
+            <Route path='/signin' element={ <UserSignInWithContext/> }></Route>
+            <Route path='/signup' element={ <UserSignUpWithContext/> }></Route>
+            <Route path='/signout' element={ <UserSignOutWithContext/> }></Route>
+            <Route path='/forbidden' element={ <Forbidden/> }></Route>
+            <Route path='*' element={ <NotFound/> }></Route>
           </Routes>
         </Provider>
     </BrowserRouter>
   );
-
 }
 
 export default App;

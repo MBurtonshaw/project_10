@@ -3,25 +3,24 @@ import Forbidden from './Forbidden';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import withNavigation from '../HOCs/Nav';
-const ReactMarkdown = require('react-markdown');
 
-function UpdateCourse(props) {
+function UpdateCourse( props ) {
 
     const authenticatedUser = props.context.authenticatedUser;
     const { id } = useParams();
     const [ currentUserId, setCurrentUserId ] = useState('');
 
     async function loader() {
-        if (id) {
+        if ( id ) {
           try{
             return(
-              await axios.get(`http://localhost:5000/api/courses/${id}`).then(
+              await axios.get( `http://localhost:5000/api/courses/${ id }` ).then(
                   response => setCurrentUserId(response.data.course.userId)
             ).then(
-              console.log(`CourseDetail.js: set course(${id}) data to state -- success`)
+              console.log( `CourseDetail.js: set course(${ id }) data to state -- success` )
             ));
-          } catch(error) {
-            console.log(error.message);
+          } catch( error ) {
+            console.log( error.message );
           }
         }
       };
@@ -46,7 +45,7 @@ function UpdateCourse(props) {
         };*/
         useEffect(() => { loader() }, [ setCurrentUserId ]);
 
-        if (authenticatedUser !== null && authenticatedUser.user.id === currentUserId) {
+        if ( authenticatedUser !== null && authenticatedUser.user.id === currentUserId ) {
        
             return (
             <div id='UpdateCourse_div' className="wrap header--flex">
@@ -54,7 +53,7 @@ function UpdateCourse(props) {
                     <h1 className="header--logo"><a href="/">Courses</a></h1>
                     <nav>
                         <ul className="header--signedin">
-                            <li>{`Welcome, ${authenticatedUser.user.firstName}!`}</li>
+                            <li>{ `Welcome, ${ authenticatedUser.user.firstName }!` }</li>
                             <li><a href="/signout">Sign Out</a></li>
                         </ul>
                     </nav>
@@ -91,4 +90,4 @@ function UpdateCourse(props) {
         }
 }
 
-export default withNavigation(UpdateCourse);
+export default withNavigation( UpdateCourse );

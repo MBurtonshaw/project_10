@@ -79,7 +79,7 @@ class UserSignIn extends Component {
           });
           this.props.navigate( -1 );
         }
-      }).catch( err => console.log( err.message ) )
+      }).catch( err => console.log( err.message ))
     };
 
   cancel = () => {

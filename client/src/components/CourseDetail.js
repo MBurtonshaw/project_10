@@ -42,7 +42,7 @@ export default function CourseDetail( props ) {
   
   //Using useEffect to call loader function & fetch data
   //Including setResults in the array in order to prevent infinite looping behavior
-  useEffect(() => { loader() }, [ setCourseDetails ]);
+  useEffect( () => { loader() }, [ setCourseDetails ] );
 
   //Destructuring the User from results state for easier access to the object
   
@@ -55,7 +55,7 @@ export default function CourseDetail( props ) {
       
       try {
       //////////////////////////////////////////////////////////////////////////////////////////////////
-      if (owner !== null && owner.user.id === User.id) {
+      if ( owner !== null && owner.user.id === User.id ) {
         return(
           <div>
             <div className="actions--bar">
@@ -72,7 +72,7 @@ export default function CourseDetail( props ) {
                     <div>
                       <h3 className="course--detail--title">Course</h3>
                       <h4 className="course--name">{ courseDetails.title }</h4>
-                      { MarkdownToHtml(`${courseDetails.description}`) }                        
+                      {MarkdownToHtml( `${ courseDetails.description }` )}                        
                     </div>
 
                     <div>
@@ -80,7 +80,7 @@ export default function CourseDetail( props ) {
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
                       <ul className="course--detail--list">
-                        <li>{ MarkdownToHtml(`${courseDetails.materialsNeeded}`) }</li>
+                        <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` )}</li>
                       </ul>
                     </div>
 
@@ -104,7 +104,7 @@ export default function CourseDetail( props ) {
                     <div>
                       <h3 className="course--detail--title">Course</h3>
                       <h4 className="course--name">{ courseDetails.title }</h4>
-                      { MarkdownToHtml(`${courseDetails.description}`) }                         
+                      { MarkdownToHtml( `${ courseDetails.description }` ) }                         
                     </div>
 
                     <div>
@@ -112,7 +112,7 @@ export default function CourseDetail( props ) {
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
                       <ul className="course--detail--list">
-                        <li>{ MarkdownToHtml(`${ courseDetails.materialsNeeded }`) }</li>
+                        <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` ) }</li>
                       </ul>
                     </div>
 
@@ -122,7 +122,7 @@ export default function CourseDetail( props ) {
             </div>
           );
         }
-      } catch(err) { 
+      } catch( err ) { 
         console.log( err.message )}
     } else {
       return <NotFound />
