@@ -1,11 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-export default function Courses() {
+export default function Courses(props) {
 
   //Setting state w a hook
   const [ courseList, setCourseList] = useState([ '' ]);
+  const authenticatedUser = props.context.authenticatedUser;
 
+  function decider() {
+    if (authenticatedUser !== null) {
+      return '/courses/create'
+    } else {
+      return '/signin'
+    }
+  }
+  
   async function loader() {
     try{
       await axios.get( 'http://localhost:5000/api/courses' ).then(
@@ -42,7 +51,7 @@ export default function Courses() {
                   </div> )
               }
               <div>
-                <a className="course--module course--add--module" href="/courses/create">
+                <a className="course--module course--add--module" href={decider()}>
                   <span className="course--add--title">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                       viewBox="0 0 13 13" className="add"><polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 "></polygon></svg>

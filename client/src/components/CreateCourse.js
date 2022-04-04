@@ -3,7 +3,9 @@ import withNavigation from '../HOCs/Nav';
 import SignIn from './SignIn';
 
 class CreateCourse extends Component {
-    render() {
+
+    render(props) {
+
         if ( this.props.context.authenticatedUser !== null ) {
         return (
             <div id='CreateCourse_div'>
@@ -44,7 +46,7 @@ class CreateCourse extends Component {
             </div>
             )
         } else {
-            return <SignIn />
+            props.navigate('/signin');
         }
     }
 }
