@@ -68,7 +68,9 @@ export class Provider extends Component {
   }
 
   deleteCourse = async (courseId, email, password) => {
-    await this.data.deleteCourse({courseId, email, password});
+    if ( this.state.authenticatedUser !== null) {
+    await this.data.deleteCourse(courseId, email, password);
+    }
   }
 }
 

@@ -29,7 +29,7 @@ export default function CourseDetail( props ) {
   async function delete_course(email, password) {
     if ( id ) {
       try{
-          props.context.actions.deleteCourse(`/courses/${id}`, 'DELETE', null, true, {email, password});
+          props.context.actions.deleteCourse(`${id}`, 'DELETE', null, true, {email, password});
       } catch( error ) {
         console.log( error.message );
       }
@@ -62,7 +62,7 @@ export default function CourseDetail( props ) {
             <div className="actions--bar">
               <a className="button" href={ `/courses/${id}/update` }>Update Course</a>
               <a className="button" onClick={ () => delete_course(owner.user.emailAddress, owner.user.password) }>Delete Course</a>
-              <a className="my_button" href="/">Return to List</a>
+              <a className="button button-secondary" href="/">Return to List</a>
             </div>
 
             <div className="wrap">
