@@ -26,11 +26,10 @@ export default function CourseDetail( props ) {
   };
 
   //function to fetch a course by id, then making a delete call to the api
-  async function delete_course() {
+  async function delete_course(email, password) {
     if ( id ) {
       try{
-          await axios.delete( `http://localhost:5000/api/courses/${ id }` ).then(
-          console.log( 'CourseDetail.js: delete course -- success' ));
+          props.context.actions.deleteCourse(`/courses/${id}`, 'DELETE', null, true, {email, password});
       } catch( error ) {
         console.log( error.message );
       }
@@ -62,7 +61,7 @@ export default function CourseDetail( props ) {
           <div>
             <div className="actions--bar">
               <a className="button" href={ `/courses/${id}/update` }>Update Course</a>
-              <a className="button" onClick={ () => props.context.actions.deleteCourse(id) }>Delete Course</a>
+              <a className="button" onClick={ () => delete_course(owner.user.emailAddress, owner.user.password) }>Delete Course</a>
               <a className="my_button" href="/">Return to List</a>
             </div>
 

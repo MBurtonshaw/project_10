@@ -63,15 +63,12 @@ export class Provider extends Component {
     Cookies.remove( 'authenticatedUser' );
   }
 
-  deleteCourse = (courseId) => {
-    return this.data.deleteCourse;
+  updateCourse = async () => {
+    await this.data.updateCourse();
   }
 
-  updateCourse = async (courseId, userId, title, description, materialsNeeded, estimatedTime) => {
-    const course = await this.Data.updateCourse(
-      {courseId, userId, title, description, materialsNeeded, estimatedTime}
-      );
-      return course
+  deleteCourse = async (courseId, email, password) => {
+    await this.data.deleteCourse({courseId, email, password});
   }
 }
 
