@@ -62,8 +62,8 @@ export default function CourseDetail( props ) {
           <div>
             <div className="actions--bar">
               <a className="button" href={ `/courses/${id}/update` }>Update Course</a>
-              <a className="button" onClick={ () => delete_course() }>Delete Course</a>
-              <a className="button button-secondary" href="/">Return to List</a>
+              <a className="button" onClick={ () => props.context.actions.deleteCourse(id) }>Delete Course</a>
+              <a className="my_button" href="/">Return to List</a>
             </div>
 
             <div className="wrap">

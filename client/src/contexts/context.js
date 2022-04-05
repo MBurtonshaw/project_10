@@ -28,7 +28,9 @@ export class Provider extends Component {
       data: this.data,
       actions: {
         signIn: this.signIn,
-        signOut: this.signOut
+        signOut: this.signOut,
+        updateCourse: this.updateCourse,
+        deleteCourse: this.deleteCourse
       }
     }
 
@@ -60,7 +62,20 @@ export class Provider extends Component {
       });
     Cookies.remove( 'authenticatedUser' );
   }
+
+  deleteCourse = (courseId) => {
+    return this.data.deleteCourse;
+  }
+
+  updateCourse = async (courseId, userId, title, description, materialsNeeded, estimatedTime) => {
+    const course = await this.Data.updateCourse(
+      {courseId, userId, title, description, materialsNeeded, estimatedTime}
+      );
+      return course
+  }
 }
+
+
 
 export const Consumer = Context.Consumer;
 

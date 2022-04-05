@@ -50,4 +50,38 @@ export default class Data {
       throw new Error();
     }
   }
+
+  async updateCourse( ) {
+    return console.log('hey');
+   /* const response = await this.api( `/course/${courseId}`, 'PUT', {
+      courseId, userId, title, description, materialsNeeded, estimatedTime
+      }, false, null);
+
+    if ( response.status === 200 ) {
+      return response.json({'message': `${title} created`}).then( data => data );
+    }
+    else if ( response.status === 401 ) {
+      return null;
+    }
+    else {
+      throw new Error();
+    } */
+  }
+
+  async deleteCourse(courseId) {
+
+    const response = await this.api( `/course/${courseId}`, 'DELETE', null);
+
+    if ( response.status === 200 ) {
+      return response.json([]).then( data => data );
+    }
+    else if ( response.status === 401 ) {
+      return null;
+    }
+    else {
+      throw new Error();
+    }
+  }
 }
+
+
