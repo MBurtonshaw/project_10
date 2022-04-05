@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from './NotFound';
 import MarkdownToHtml from '../HOCs/Markdown';
@@ -7,6 +7,7 @@ import MarkdownToHtml from '../HOCs/Markdown';
 export default function CourseDetail( props ) {
 
   //Destructuring id from url params, and initiating state 'results'
+  const navigate = useNavigate();
   const { id } = useParams();
   const [ courseDetails, setCourseDetails ] = useState('');
 
@@ -26,10 +27,11 @@ export default function CourseDetail( props ) {
   };
 
   //function to fetch a course by id, then making a delete call to the api
-  async function delete_course(email, password) {
+  async function delete_course(id, emailAddress, password) {
     if ( id ) {
       try{
-          props.context.actions.deleteCourse(`${id}`, 'DELETE', null, true, {email, password});
+          await props.context.actions.deleteCourse(`${id}`, emailAddress, password);
+          navigate('/');
       } catch( error ) {
         console.log( error.message );
       }
@@ -49,19 +51,19 @@ export default function CourseDetail( props ) {
     const { User } = courseDetails;
     //Checking if the User is present before loading page to account for async functions
     if ( User ) {
-      let owner = props.context.authenticatedUser;
+      let user = props.context.authenticatedUser.user;
       
       try {
       //////////////////////////////////////////////////////////////////////////////////////////////////
       //Checking if the user is the course owner
       //If so, they have access to update & delete the course. Otherwise component is returned
       //without those options
-      if ( owner !== null && owner.user.id === User.id ) {
+      if ( id && user.id === User.id ) {
         return(
           <div>
             <div className="actions--bar">
               <a className="button" href={ `/courses/${id}/update` }>Update Course</a>
-              <a className="button" onClick={ () => delete_course(owner.user.emailAddress, owner.user.password) }>Delete Course</a>
+              <a className="button" onClick={ () => delete_course(id, user.emailAddress, user.password) }>Delete Course</a>
               <a className="button button-secondary" href="/">Return to List</a>
             </div>
 

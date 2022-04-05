@@ -44,32 +44,46 @@ export class Provider extends Component {
   
   signIn = async ( emailAddress, password ) => {
     const user = await this.data.getUser( emailAddress, password );
+    
     if ( user !== null ) {
       this.setState(() => {
         return {
           authenticatedUser: user
         };
       });
+      user.user.password = password;
       Cookies.set( 'authenticatedUser', JSON.stringify( user ), { expires: 1 } );
     }
     return user;
   }
 
   signOut = () => {
-    this.setState(()=> {
-      return {
-        authenticatedUser: null }
-      });
-    Cookies.remove( 'authenticatedUser' );
+    try {
+      this.setState(()=> {
+        return {
+          authenticatedUser: null }
+        });
+      Cookies.remove( 'authenticatedUser' );
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   updateCourse = async () => {
-    await this.data.updateCourse();
+    try {
+      await this.data.updateCourse();
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
-  deleteCourse = async (courseId, email, password) => {
+  deleteCourse = async (courseId, emailAddress, password) => {
     if ( this.state.authenticatedUser !== null) {
-    await this.data.deleteCourse(courseId, email, password);
+      try {
+        await this.data.deleteCourse(courseId, emailAddress, password);
+      } catch(error) {
+        console.log(error.message);
+      }
     }
   }
 }
