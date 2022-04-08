@@ -44,9 +44,9 @@ function UpdateCourse( props ) {
       }
     }
 
-      function submit() {
+     /* function submit() {
         ''
-      }
+      } */
 
      
         //second_loader set first because otherwise two objects were returned, the first being undefined
