@@ -45,8 +45,14 @@ export default function CourseDetail( props ) {
   //Using useEffect to call loader function & fetch data
   //Including setCourseDetails in the array in order to prevent infinite looping behavior
   useEffect( () => { loader() }, [ setCourseDetails ] );
+  if (courseDetails.User !== null) {
+    const {User} = courseDetails;
+    console.log(User)
+    return 'hey';
+  }
 
-  if ( courseDetails !== null ) {
+
+  /*if ( courseDetails !== null ) {
       //Destructuring the User from results state for easier access to the object
     const { User } = courseDetails;
     //Checking if the User is present before loading page to account for async functions
@@ -58,7 +64,7 @@ export default function CourseDetail( props ) {
       //Checking if the user is the course owner
       //If so, they have access to update & delete the course. Otherwise component is returned
       //without those options
-      if ( id && user.id === User.id ) {
+     // if ( id && user.id === User.id ) {
         return(
           <div>
             <div className="actions--bar">
@@ -74,18 +80,18 @@ export default function CourseDetail( props ) {
 
                     <div>
                       <h3 className="course--detail--title">Course</h3>
-                      <h4 className="course--name">{ courseDetails.title }</h4>
+                      <h4 className="course--name">{ courseDetails.title }</h4>*/
                       {/*rendering course description w markdown*/}
-                      {MarkdownToHtml( `${ courseDetails.description }` )}                        
+                     /* {MarkdownToHtml( `${ courseDetails.description }` )}                        
                     </div>
 
                     <div>
                       <h3 className="course--detail--title">Estimated Time</h3>
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
-                      <ul className="course--detail--list">
+                      <ul className="course--detail--list">*/
                         {/*rendering course materials w markdown*/}
-                        <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` )}</li>
+                        /*<li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` )}</li>
                       </ul>
                     </div>
 
@@ -94,7 +100,7 @@ export default function CourseDetail( props ) {
               </div>
             </div>
           );
-      } else {
+      /*} else {
         return(
           <div>
             <div className="actions--bar">
@@ -108,18 +114,18 @@ export default function CourseDetail( props ) {
 
                     <div>
                       <h3 className="course--detail--title">Course</h3>
-                      <h4 className="course--name">{ courseDetails.title }</h4>
+                      <h4 className="course--name">{ courseDetails.title }</h4>*/
                       {/*rendering course description w markdown*/}
-                      { MarkdownToHtml( `${ courseDetails.description }` ) }                         
+                      /*{ MarkdownToHtml( `${ courseDetails.description }` ) }                         
                     </div>
 
                     <div>
                       <h3 className="course--detail--title">Estimated Time</h3>
                       <p>{ courseDetails.estimatedTime }</p>
                       <h3 className="course--detail--title">Materials Needed</h3>
-                      <ul className="course--detail--list">
+                      <ul className="course--detail--list">*/
                         {/*rendering course materials w markdown*/}
-                        <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` ) }</li>
+                       /* <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` ) }</li>
                       </ul>
                     </div>
 
@@ -137,4 +143,4 @@ export default function CourseDetail( props ) {
   } else {
     return <NotFound />
   }
-}
+}*/}
