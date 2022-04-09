@@ -1,48 +1,70 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
 import SignIn from './SignIn';
+import Form from './Form';
+import Error from './Error';
 
 class CreateCourse extends Component {
-
-    render( props ) {
+    state = {
+        userId: '',
+        courseTitle: '',
+        courseDescription: '',
+        estimatedTime: '',
+        materialsNeeded: '',
+        email: '',
+        password: '',
+        errors: [],
+      }
+    render(props) {
+        const {
+            courseTitle,
+            courseDescription,
+            estimatedTime,
+            materialsNeeded,
+            errors,
+          } = this.state;
 
         //If there's an authenticated user, display the component
         //Otherwise, redirect to /signin
         if ( this.props.context.authenticatedUser !== null ) {
+            let owner = this.props.context.authenticatedUser;
+            this.state.userId = owner.user.id;
+            this.state.email = owner.user.emailAddress;
+            this.state.password = owner.user.password;
         return (
             <div id='CreateCourse_div'>
             <div className="wrap header--flex">
                 <div className="wrap">
                     <h2>Create Course</h2>
-                    <div className="validation--errors">
-                            {/*<h3>Validation Errors</h3>
-                            <ul>
-                                <li>Please provide a value for "Title"</li>
-                                <li>Please provide a value for "Description"</li>
-                            </ul>*/}
-                    </div>
-                    <form>
-                    <div className="main--flex">
-                        <div>
-                            <label htmlFor="courseTitle">Course Title</label>
-                            <input id="courseTitle" name="courseTitle" type="text" defaultValue=""/>
+                    <Form
+                        cancel={ this.cancel }
+                        errors={ errors }
+                        submit={ this.submit }
+                        submitButtonText="Create"
+                        elements={ () => (
+                            <React.Fragment>
+                                <div className="main--flex">
+                                    <div>
+                                        <label htmlFor="courseTitle">Course Title</label>
+                                        <input id="courseTitle" name="courseTitle" type="text" value={courseTitle} onChange={ this.change }/>
 
-                            <p>By Joe Smith</p>
+                                        <p>By: {owner.user.firstName + ' ' + owner.user.lastName}</p>
 
-                            <label htmlFor="courseDescription">Course Description</label>
-                            <textarea id="courseDescription" name="courseDescription"></textarea>
-                        </div>
-                        <div>
-                            <label htmlFor="estimatedTime">Estimated Time</label>
-                            <input id="estimatedTime" name="estimatedTime" type="text" defaultValue=""/>
+                                        <label htmlFor="courseDescription">Course Description</label>
+                                        <textarea id="courseDescription" name="courseDescription" value={courseDescription} onChange={ this.change }></textarea>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="estimatedTime">Estimated Time</label>
+                                        <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={ this.change }/>
 
-                            <label htmlFor="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded">
-                            </textarea>
-                        </div>
-                    </div>
-                    <button className="button" type="submit">Create Course</button><button className="button button-secondary" href='index.html'>Cancel</button>
-                    </form>
+                                        <label htmlFor="materialsNeeded">Materials Needed</label>
+                                        <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={ this.change }>
+                                        </textarea>
+                                    </div>
+                                </div>
+                        </React.Fragment>
+                        )}/>
+                    
                     </div>
                 </div>
             </div>
@@ -50,6 +72,36 @@ class CreateCourse extends Component {
         } else {
             props.navigate( '/signin' );
         }
+    }
+
+    change = ( event ) => {
+        const name = event.target.name;
+        const value = event.target.value;
+    
+        this.setState(() => {
+          return {
+            [ name ]: value
+          };
+        });
+      }
+
+    submit = () => {
+        const { context } = this.props;
+        const { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, email, password } = this.state;
+        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, email, password};
+        if (course) {
+            try {
+                context.data.createCourse(course).then(
+                    console.log(course)
+                )
+            } catch(error) {
+                console.log(error.message)
+            }
+
+        } else { 
+            return <Error error={'Oops, this feature is not ready yet'}/>
+        }
+
     }
 }
 
