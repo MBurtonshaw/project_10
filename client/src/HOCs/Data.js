@@ -51,21 +51,29 @@ export default class Data {
     }
   }
 
-  async updateCourse( ) {
-    return console.log('hey');
-   /* const response = await this.api( `/course/${courseId}`, 'PUT', {
-      courseId, userId, title, description, materialsNeeded, estimatedTime
-      }, false, null);
+  async updateCourse(courseId, course, credentials) {
+    const newCourse = {
+      userId: course.userId,
+      title: course.title,
+      description: course.courseDescription,
+      estimatedTime: course.estimatedTime,
+      materialsNeeded: course.materialsNeeded
+    };
+    const info = {
+      emailAddress: credentials.emailAddress,
+      password: credentials.password
+    };
+   const response = await this.api( `/course/${courseId}`, 'PUT', newCourse, true, info);
 
     if ( response.status === 200 ) {
-      return response.json({'message': `${title} created`}).then( data => data );
+      return response.json({'message': `${newCourse.title} created`}).then( data => data );
     }
     else if ( response.status === 401 ) {
       return null;
     }
     else {
       throw new Error();
-    } */
+    }
   }
 
   async deleteCourse(courseId, email, password) {

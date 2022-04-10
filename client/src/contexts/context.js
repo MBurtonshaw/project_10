@@ -71,11 +71,13 @@ export class Provider extends Component {
     }
   }
 
-  updateCourse = async () => {
-    try {
-      await this.data.updateCourse();
-    } catch (error) {
-      console.log(error.message)
+  updateCourse = async (courseId, course, credentials) => {
+    if ( this.state.authenticatedUser !== null) {
+      try {
+        await this.data.updateCourse(courseId, course, credentials);
+      } catch(error) {
+        console.log(error.message)
+      }
     }
   }
 

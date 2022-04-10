@@ -4,6 +4,15 @@ import Form from './Form';
 import Error from './Error';
 
 class CreateCourse extends Component {
+    constructor(props) {
+        super();
+        let owner = props.context.authenticatedUser
+        this.state = {
+            userId: owner.user.id,
+            emailAddress: owner.user.emailAddress,
+            password: owner.user.password
+        }
+    }
     state = {
         userId: '',
         courseTitle: '',
@@ -22,6 +31,8 @@ class CreateCourse extends Component {
             materialsNeeded,
             errors,
           } = this.state;
+
+          
 
         //If there's an authenticated user, display the component
         //Otherwise, redirect to /signin
@@ -85,10 +96,11 @@ class CreateCourse extends Component {
     submit = () => {
         const { context } = this.props;
         const { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
-        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password};
+        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password };
+        const credentials = { emailAddress, password };
         if (course) {
             try {
-                context.data.createCourse(course)
+                context.data.createCourse(course, credentials)
             } catch(error) {
                 return <Error error={error.message}/>
             }
