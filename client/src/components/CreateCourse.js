@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
-import SignIn from './SignIn';
 import Form from './Form';
 import Error from './Error';
 
@@ -11,7 +10,7 @@ class CreateCourse extends Component {
         courseDescription: '',
         estimatedTime: '',
         materialsNeeded: '',
-        email: '',
+        emailAddress: '',
         password: '',
         errors: [],
       }
@@ -28,9 +27,6 @@ class CreateCourse extends Component {
         //Otherwise, redirect to /signin
         if ( this.props.context.authenticatedUser !== null ) {
             let owner = this.props.context.authenticatedUser;
-            this.state.userId = owner.user.id;
-            this.state.email = owner.user.emailAddress;
-            this.state.password = owner.user.password;
         return (
             <div id='CreateCourse_div'>
             <div className="wrap header--flex">
@@ -85,17 +81,16 @@ class CreateCourse extends Component {
         });
       }
 
+      //CLEARED FOR ERRORS
     submit = () => {
         const { context } = this.props;
-        const { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, email, password } = this.state;
-        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, email, password};
+        const { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
+        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password};
         if (course) {
             try {
-                context.data.createCourse(course).then(
-                    console.log(course)
-                )
+                context.data.createCourse(course)
             } catch(error) {
-                console.log(error.message)
+                return <Error error={error.message}/>
             }
 
         } else { 

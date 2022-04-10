@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Data from '../HOCs/Data';
 import Cookies from 'js-cookie';
+import Forbidden from '../components/Forbidden';
 
 const Context = React.createContext(); 
 
@@ -30,7 +31,8 @@ export class Provider extends Component {
         signIn: this.signIn,
         signOut: this.signOut,
         updateCourse: this.updateCourse,
-        deleteCourse: this.deleteCourse
+        deleteCourse: this.deleteCourse,
+        createCourse: this.createCourse
       }
     }
 
@@ -65,7 +67,7 @@ export class Provider extends Component {
         });
       Cookies.remove( 'authenticatedUser' );
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message)
     }
   }
 
@@ -82,8 +84,23 @@ export class Provider extends Component {
       try {
         await this.data.deleteCourse(courseId, emailAddress, password);
       } catch(error) {
-        console.log(error.message);
+        console.log(error.message)
       }
+    }
+  }
+
+
+  createCourse = async (userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password) => {
+    if ( this.state.authenticatedUser.user.emailAddress !== null) {
+      try {
+        await this.data.createCourse({
+          userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password
+        });
+      } catch(error) {
+        console.log(error.message)
+      }
+    } else {
+      return <Forbidden />
     }
   }
 }
