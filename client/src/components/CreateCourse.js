@@ -15,8 +15,8 @@ class CreateCourse extends Component {
     }
     state = {
         userId: '',
-        courseTitle: '',
-        courseDescription: '',
+        title: '',
+        description: '',
         estimatedTime: '',
         materialsNeeded: '',
         emailAddress: '',
@@ -25,8 +25,8 @@ class CreateCourse extends Component {
       }
     render(props) {
         const {
-            courseTitle,
-            courseDescription,
+            title,
+            description,
             estimatedTime,
             materialsNeeded,
             errors,
@@ -53,12 +53,12 @@ class CreateCourse extends Component {
                                 <div className="main--flex">
                                     <div>
                                         <label htmlFor="courseTitle">Course Title</label>
-                                        <input id="courseTitle" name="courseTitle" type="text" value={courseTitle} onChange={ this.change }/>
+                                        <input id="courseTitle" name="title" type="text" value={title} onChange={ this.change }/>
 
                                         <p>By: {owner.user.firstName + ' ' + owner.user.lastName}</p>
 
                                         <label htmlFor="courseDescription">Course Description</label>
-                                        <textarea id="courseDescription" name="courseDescription" value={courseDescription} onChange={ this.change }></textarea>
+                                        <textarea id="courseDescription" name="description" value={description} onChange={ this.change }></textarea>
                                     </div>
                                     <div>
                                         <label htmlFor="estimatedTime">Estimated Time</label>
@@ -95,8 +95,8 @@ class CreateCourse extends Component {
       //CLEARED FOR ERRORS
     submit = () => {
         const { context } = this.props;
-        const { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
-        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password };
+        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
+        const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
         if (course) {
             try {

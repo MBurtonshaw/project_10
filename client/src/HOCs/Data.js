@@ -92,10 +92,10 @@ export default class Data {
   }
 
 
-  async createCourse( userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password ) {
-
+  async createCourse( {userId, title, description, estimatedTime, materialsNeeded, emailAddress, password} ) {
+    console.log({userId, title, description, estimatedTime, materialsNeeded});
     const response = await this.api( '/courses', 'POST', {
-      userId, courseTitle, courseDescription, estimatedTime, materialsNeeded
+      userId, title, description, estimatedTime, materialsNeeded
       }, true, {emailAddress, password} );
         if ( response.status === 201 ) {
           return console.log('success');

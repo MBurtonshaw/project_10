@@ -92,11 +92,11 @@ export class Provider extends Component {
   }
 
 
-  createCourse = async (userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password) => {
+  createCourse = async (userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
     if ( this.state.authenticatedUser.user.emailAddress !== null) {
       try {
         await this.data.createCourse({
-          userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password
+          userId, title, description, estimatedTime, materialsNeeded, emailAddress, password
         });
       } catch(error) {
         console.log(error.message)
