@@ -10,7 +10,11 @@ class CreateCourse extends Component {
         this.state = {
             userId: owner.user.id,
             emailAddress: owner.user.emailAddress,
-            password: owner.user.password
+            password: owner.user.password,
+            title: '',
+            description: '',
+            estimatedTime: '',
+            materialsNeeded: ''
         }
     }
     state = {
