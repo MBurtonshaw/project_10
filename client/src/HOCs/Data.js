@@ -51,31 +51,6 @@ export default class Data {
     }
   }
 
-  async updateCourse(courseId, course, credentials) {
-    const newCourse = {
-      userId: course.userId,
-      title: course.title,
-      description: course.courseDescription,
-      estimatedTime: course.estimatedTime,
-      materialsNeeded: course.materialsNeeded
-    };
-    const info = {
-      emailAddress: credentials.emailAddress,
-      password: credentials.password
-    };
-   const response = await this.api( `/course/${courseId}`, 'PUT', newCourse, true, info);
-
-    if ( response.status === 200 ) {
-      return response.json({'message': `${newCourse.title} created`}).then( data => data );
-    }
-    else if ( response.status === 401 ) {
-      return null;
-    }
-    else {
-      throw new Error();
-    }
-  }
-
   async deleteCourse(courseId, email, password) {
 
     const response = await this.api( `/courses/${courseId}`, 'DELETE', null, true, {emailAddress: email, password});
@@ -104,7 +79,34 @@ export default class Data {
           return response.json().then( data => {
             return ({error: data.errors});
           });
+        }     else if ( response.status === 401 ) {
+          return null;
+        }
+        else {
+          throw new Error();
         }
       } 
+
+      async updateCourse( {courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password} ) {
+        if (courseId !== undefined && courseId !== null) {
+          console.log({userId, title, description, estimatedTime, materialsNeeded});
+        const response = await this.api( `/courses/${courseId}`, 'PUT', {
+          userId, title, description, estimatedTime, materialsNeeded
+          }, true, {emailAddress, password} );
+            if ( response.status === 201 ) {
+              return console.log('success');
+            }
+            else if ( response.status === 400 ) {
+              return response.json().then( data => {
+                return ({error: data.errors});
+              });
+            }     else if ( response.status === 401 ) {
+              return null;
+            }
+            else {
+              throw new Error();
+            }
+          }
+        } 
   }
 

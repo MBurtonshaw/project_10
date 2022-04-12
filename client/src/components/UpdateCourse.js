@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
 import withParameters from '../HOCs/Params';
+import NotFound from './NotFound';
 import Form from './Form';
 import Error from './Error';
 
@@ -11,13 +12,17 @@ class UpdateCourse extends Component {
     this.state = {
       userId: owner.user.id,
       emailAddress: owner.user.emailAddress,
-      password: owner.user.password
+      password: owner.user.password,
+      title: '',
+      description: '',
+      estimatedTime: '',
+      materialsNeeded: ''
     }
 }
     state = {
         userId: '',
-        courseTitle: '',
-        courseDescription: '',
+        title: '',
+        description: '',
         estimatedTime: '',
         materialsNeeded: '',
         emailAddress: '',
@@ -27,8 +32,8 @@ class UpdateCourse extends Component {
 
     render(props) {
         const {
-            courseTitle,
-            courseDescription,
+            title,
+            description,
             estimatedTime,
             materialsNeeded,
             errors,
@@ -50,18 +55,18 @@ class UpdateCourse extends Component {
                         cancel={ this.cancel }
                         errors={ errors }
                         submit={ this.submit }
-                        submitButtonText="Create"
+                        submitButtonText="Update"
                         elements={ () => (
                             <React.Fragment>
                                 <div className="main--flex">
                                     <div>
                                         <label htmlFor="courseTitle">Course Title</label>
-                                        <input id="courseTitle" name="courseTitle" type="text" value={courseTitle} onChange={ this.change }/>
+                                        <input id="courseTitle" name="title" type="text" value={title} onChange={ this.change }/>
 
-                                        {/*<p>By: {owner.user.firstName + ' ' + owner.user.lastName}</p>*/}
+                                        <p>By: {owner.user.firstName + ' ' + owner.user.lastName}</p>
 
                                         <label htmlFor="courseDescription">Course Description</label>
-                                        <textarea id="courseDescription" name="courseDescription" value={courseDescription} onChange={ this.change }></textarea>
+                                        <textarea id="courseDescription" name="description" value={description} onChange={ this.change }></textarea>
                                     </div>
                                     <div>
                                         <label htmlFor="estimatedTime">Estimated Time</label>
@@ -98,14 +103,24 @@ class UpdateCourse extends Component {
       //CLEARED FOR ERRORS
     submit = () => {
         const { context } = this.props;
-        const { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
-        const course = { userId, courseTitle, courseDescription, estimatedTime, materialsNeeded };
-        const credentials = {emailAddress, password};
+        const courseId = this.props.params.id;
+        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
+        const course = {
+          courseId, userId, title, description, estimatedTime, materialsNeeded
+      };
+        const credentials = {
+          emailAddress, password
+        }
+        if (this.props.params.id !== undefined) {
         try {
-          context.data.updateCourse(this.params.id, course, credentials)
+          context.data.updateCourse( course, credentials );
+          //this.props.navigate(`/courses/${this.props.params.id}`);
       } catch(error) {
           return <Error error={error.message}/>
       }
+    } else {
+      return <NotFound />
+    }
     }
 }
 

@@ -104,7 +104,7 @@ class CreateCourse extends Component {
         const credentials = { emailAddress, password };
         if (course) {
             try {
-                context.data.createCourse(course, credentials)
+                context.data.createCourse( course, credentials )
             } catch(error) {
                 return <Error error={error.message}/>
             }

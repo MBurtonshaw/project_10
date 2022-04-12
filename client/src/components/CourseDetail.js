@@ -55,7 +55,6 @@ export default function CourseDetail( props ) {
     }
   };
 
-  console.log(props)
   
   //Using useEffect to call loader function & fetch data
   //Including setCourseDetails in the array in order to prevent infinite looping behavior
