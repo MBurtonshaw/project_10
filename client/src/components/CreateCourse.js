@@ -27,6 +27,7 @@ class CreateCourse extends Component {
         password: '',
         errors: [],
       }
+
     render(props) {
         const {
             title,
@@ -36,12 +37,13 @@ class CreateCourse extends Component {
             errors,
           } = this.state;
 
-          
-
         //If there's an authenticated user, display the component
         //Otherwise, redirect to /signin
         if ( this.props.context.authenticatedUser !== null ) {
             let owner = this.props.context.authenticatedUser;
+
+        
+
         return (
             <div id='CreateCourse_div'>
             <div className="wrap header--flex">
@@ -56,6 +58,7 @@ class CreateCourse extends Component {
                             <React.Fragment>
                                 <div className="main--flex">
                                     <div>
+                                       
                                         <label htmlFor="courseTitle">Course Title</label>
                                         <input id="courseTitle" name="title" type="text" value={title} onChange={ this.change }/>
 
@@ -102,13 +105,20 @@ class CreateCourse extends Component {
         const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
         const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
-        if (course) {
+        const errors = [];
+        errors.push(this.state.errors);
+        if (errors === null) {
             try {
-                context.data.createCourse( course, credentials )
+                context.data.createCourse( course, credentials );
+                this.props.navigate(`/`);
             } catch(error) {
-                return <Error error={error.message}/>
+                 console.log(error)
             }
 
+        } else if (!course.title) {
+            return <p>Course title is required</p>
+        } else if (!course.description) {
+            return <p>Course description is required</p>
         } else { 
             return <Error error={'Oops, this feature is not ready yet'}/>
         }

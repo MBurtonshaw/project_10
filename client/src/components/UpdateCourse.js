@@ -104,17 +104,12 @@ class UpdateCourse extends Component {
     submit = () => {
         const { context } = this.props;
         const courseId = this.props.params.id;
-        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
-        const course = {
-          courseId, userId, title, description, estimatedTime, materialsNeeded
-      };
-        const credentials = {
-          emailAddress, password
-        }
+        const { userId, title, description, estimatedTime, materialsNeeded } = this.state;
+        console.log(this.state.password)
         if (this.props.params.id !== undefined) {
         try {
-          context.data.updateCourse( course, credentials );
-          //this.props.navigate(`/courses/${this.props.params.id}`);
+          context.data.updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, this.state.emailAddress, this.state.password );
+          this.props.navigate(`/courses/${this.props.params.id}`);
       } catch(error) {
           return <Error error={error.message}/>
       }

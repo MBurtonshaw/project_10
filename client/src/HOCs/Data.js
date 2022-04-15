@@ -1,4 +1,5 @@
 import config from '../config';
+import withNavigation from './Nav';
 
 export default class Data {
   api( path, method = 'GET', body = null, requiresAuth = false, credentials = null ) {
@@ -87,12 +88,14 @@ export default class Data {
         }
       } 
 
-      async updateCourse( {courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password} ) {
+      async updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password ) {
         if (courseId !== undefined && courseId !== null) {
-          console.log({userId, title, description, estimatedTime, materialsNeeded});
-        const response = await this.api( `/courses/${courseId}`, 'PUT', {
-          userId, title, description, estimatedTime, materialsNeeded
-          }, true, {emailAddress, password} );
+        console.log(emailAddress, password);
+        const course = {userId, title, description, estimatedTime, materialsNeeded};
+        const credentials = {emailAddress, password};
+        const response = await this.api( `/courses/${courseId}`, 'PUT', course, true, credentials );
+        console.log(course);
+        console.log(credentials);
             if ( response.status === 201 ) {
               return console.log('success');
             }

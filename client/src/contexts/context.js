@@ -75,9 +75,9 @@ export class Provider extends Component {
     if ( this.state.authenticatedUser.user.emailAddress !== null) {
       try {
         console.log(courseId);
-        await this.data.updateCourse({
+        await this.data.updateCourse(
           courseId, userId, description, title, estimatedTime, materialsNeeded, emailAddress, password
-        });
+        );
       } catch(error) {
         console.log(error.message)
       }

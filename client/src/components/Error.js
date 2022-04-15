@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
+import withNavigation from '../HOCs/Nav';
 
-
-export default class Error extends Component {
+class Error extends Component {
     render() {
         let mistake;
         if (this.props.error) {
@@ -19,3 +19,5 @@ export default class Error extends Component {
       )
     }
 }
+
+export default withNavigation(Error);
