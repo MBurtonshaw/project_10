@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import Error from './Error';
 
 export default function Courses( props ) {
 
-  //Setting state w a hook
   const [ courseList, setCourseList ] = useState([ '' ]);
   const authenticatedUser = props.context.authenticatedUser;
 
@@ -15,7 +15,6 @@ export default function Courses( props ) {
     }
   }
   
-  //function to fetch data from api/courses then mapping that data to state
   async function loader() {
     try{
       await axios.get( 'http://localhost:5000/api/courses' ).then(
@@ -27,21 +26,15 @@ export default function Courses( props ) {
       }
     };  
 
-    //Loader function should execute whenever the Courses component renders
     useEffect( () => { loader() }, [ setCourseList ]);
 
     try {
-      //Conditional statement to check that App is passing down props
       if ( courseList ) {
         
-    //////////////////////////////////////////////////////////////////////////////////////////////////
         return (
           <div id='Courses_div'>
             <div className="wrap main--grid">
 
-              {/* Mapping through the course data from props
-                  Adding an index to enable a key property
-                  Dynamically adding course info */}
               {
                 courseList.map( ( course, index ) => 
                   <div key={ index }>
@@ -79,6 +72,6 @@ export default function Courses( props ) {
               </div>
             )}
       } catch ( error ) {
-          console.log( error.message );
+          return <Error error={error.message}/>
         }
   }

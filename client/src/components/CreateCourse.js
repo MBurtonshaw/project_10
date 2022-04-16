@@ -38,8 +38,6 @@ class CreateCourse extends Component {
             errors,
           } = this.state;
 
-        //If there's an authenticated user, display the component
-        //Otherwise, redirect to /signin
         if ( this.props.context.authenticatedUser !== null ) {
             let owner = this.props.context.authenticatedUser;
           
@@ -51,7 +49,6 @@ class CreateCourse extends Component {
               </div>
            </div>
          )
-          
       }
 
         return (
@@ -115,11 +112,9 @@ class CreateCourse extends Component {
         });
       }
 
-
-      //CLEARED FOR ERRORS
     submit = () => {
         const { context } = this.props;
-        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password, errors } = this.state;
+        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
         
         const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
@@ -140,9 +135,9 @@ class CreateCourse extends Component {
         }
     }
 
-cancel = () => {
-  this.props.navigate('/');
-}
+  cancel = () => {
+    this.props.navigate('/');
+  }
 
 }
 

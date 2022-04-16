@@ -3,7 +3,6 @@ import React from 'react';
 export default function Form ( props ) {
   const {
     cancel,
-    errors,
     submit,
     submitButtonText,
     elements,
@@ -21,7 +20,6 @@ export default function Form ( props ) {
 
   return (
     <div>
-      {/*<ErrorsDisplay errors={ errors } />*/}
       <form onSubmit={ handleSubmit }>
         { elements() }
         <div className="pad-bottom">
@@ -33,20 +31,4 @@ export default function Form ( props ) {
   );
 }
 
-function ErrorsDisplay({ errors }) {
-  let errorsDisplay = null;
 
-  if ( errors.length ) {
-    errorsDisplay = (
-      <div>
-        <h2 className="validation--errors--label">Validation errors</h2>
-        <div className="validation-errors">
-          <ul>
-            { errors.map(( error, i ) => <li key={ i }>{ error }</li> )}
-          </ul>
-        </div>
-      </div>
-    );
-  }
-  return errorsDisplay;
-}

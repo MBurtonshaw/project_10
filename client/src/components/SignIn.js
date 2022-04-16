@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 import withNavigation from '../HOCs/Nav';
+import Error from './Error';
 
 class UserSignIn extends Component {
   state = {
@@ -83,7 +84,9 @@ class UserSignIn extends Component {
           //Navigate to previous page when signed in
           this.props.navigate( -1 );
         }
-      }).catch( err => console.log( err.message ))
+      }).catch(error=>
+         <Error error={error.message}/>
+      )
     };
 
   cancel = () => {

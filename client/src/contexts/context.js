@@ -12,20 +12,24 @@ export class Provider extends Component {
     this.data = new Data();
     this.cookie = Cookies.get( 'authenticatedUser' );
     this.state = {
-      authenticatedUser : this.cookie ? JSON.parse( this.cookie ) : null
+      authenticatedUser : this.cookie ? JSON.parse( this.cookie ) : null,
+      course: null, error: null
     };
   }
 
   
 
   state = {
-    authenticatedUser: null
+    authenticatedUser: null,
+    course: null,
+    error: null
   }
 
   render() {
-    const { authenticatedUser } = this.state;
+    const { authenticatedUser, error } = this.state;
     const value = {
       authenticatedUser,
+      error,
       data: this.data,
       actions: {
         signIn: this.signIn,
@@ -79,7 +83,7 @@ export class Provider extends Component {
           courseId, userId, description, title, estimatedTime, materialsNeeded, emailAddress, password
         );
       } catch(error) {
-        console.log(error.message)
+        this.setState(error);
       }
     } else {
       return <Forbidden />
@@ -96,7 +100,6 @@ export class Provider extends Component {
     }
   }
 
-
   createCourse = async (userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
     if ( this.state.authenticatedUser.user.emailAddress !== null) {
       try {
@@ -111,8 +114,6 @@ export class Provider extends Component {
     }
   }
 }
-
-
 
 export const Consumer = Context.Consumer;
 

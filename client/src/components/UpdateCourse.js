@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
 import withParameters from '../HOCs/Params';
-import NotFound from './NotFound';
+import Forbidden from './Forbidden';
 import Form from './Form';
 import Error from './Error';
-import axios from 'axios';
 
 class UpdateCourse extends Component {
   constructor(props) {
@@ -18,7 +17,8 @@ class UpdateCourse extends Component {
       description: '',
       estimatedTime: '',
       materialsNeeded: '',
-      errors: null
+      course: '',
+      errors: ''
     }
 }
     state = {
@@ -43,26 +43,8 @@ class UpdateCourse extends Component {
 
           const { id } = this.props.params;
 
-          async function loader() {
-            try{
-             
-                await axios.get( `http://localhost:5000/api/courses/${ id }` ).then(
-                    response => {
-                      this.setState({
-                        title: response.data.course.title,
-                        description: response.data.course.description
-                      })
-                    }
-              );
-            } catch( error ) {
-              console.log( error.message );
-            }
-          }
-
-        //If there's an authenticated user, display the component
-        //Otherwise, redirect to /signin
         if (this.props.context.authenticatedUser !== null && id !== null ) {
-            loader();
+         
             let owner = this.props.context.authenticatedUser;
 
             function ErrorsDisplay() {
@@ -134,11 +116,11 @@ class UpdateCourse extends Component {
     submit = () => {
         const { context } = this.props;
         const courseId = this.props.params.id;
-        const { userId, title, description, estimatedTime, materialsNeeded, errors } = this.state;
+        const { userId, title, description, estimatedTime, materialsNeeded } = this.state;
     
         if (this.props.params.id !== undefined) {
 
-          if (!title && !description) {
+        /*  if (!title && !description) {
             this.setState({
               errors: 'A title and description are required'
             });
@@ -149,19 +131,19 @@ class UpdateCourse extends Component {
           } else if (!description) {
             this.setState({errors: 'A description is required'});
 
-          } else {
+          } else {*/
 
               try {
                 context.data.updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, this.state.emailAddress, this.state.password );
-                this.props.navigate(`/courses/${this.props.params.id}`);
+                //this.props.navigate(`/courses/${this.props.params.id}`);
 
             } catch(error) {
-                return <Error error={error.message}/>
+                this.setState({errors: error})
             }
-          }
+          
 
     } else {
-      return <NotFound />
+      return <Forbidden />
     }
     }
 }

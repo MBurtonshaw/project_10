@@ -90,21 +90,21 @@ export default class Data {
 
       async updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password ) {
         if (courseId !== undefined && courseId !== null) {
-        console.log(emailAddress, password);
+
         const course = {userId, title, description, estimatedTime, materialsNeeded};
         const credentials = {emailAddress, password};
         const response = await this.api( `/courses/${courseId}`, 'PUT', course, true, credentials );
-        console.log(course);
-        console.log(credentials);
+
             if ( response.status === 201 ) {
               console.log('success')
             }
             else if ( response.status === 400 ) {
               return response.json().then( data => {
-                return ({error: data.errors});
+                let message = data.errors;
+                return message;
               });
             }     else if ( response.status === 401 ) {
-              return null;
+              return 'Unauthorized'
             }
             else {
               throw new Error();
