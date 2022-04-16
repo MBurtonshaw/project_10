@@ -69,24 +69,24 @@ export default class Data {
 
 
   async createCourse( {userId, title, description, estimatedTime, materialsNeeded, emailAddress, password} ) {
-    console.log({userId, title, description, estimatedTime, materialsNeeded});
-    const response = await this.api( '/courses', 'POST', {
-      userId, title, description, estimatedTime, materialsNeeded
-      }, true, {emailAddress, password} );
-        if ( response.status === 201 ) {
-          return console.log('success');
+    if (title !== '' && description !== '') {
+      const response = await this.api( '/courses', 'POST', {
+        userId, title, description, estimatedTime, materialsNeeded
+        }, true, {emailAddress, password} );
+          if ( response.status === 201 ) {
+            return console.log(response.status);
+          }
+          else if ( response.status === 400 ) {
+            return console.log(response.status);
+           
+          }     else if ( response.status === 401 ) {
+            return console.log(response.status);
+          }
+          else {
+            throw new Error();
+          }
         }
-        else if ( response.status === 400 ) {
-          return response.json().then( data => {
-            return ({error: data.errors});
-          });
-        }     else if ( response.status === 401 ) {
-          return null;
-        }
-        else {
-          throw new Error();
-        }
-      } 
+    } 
 
       async updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password ) {
         if (courseId !== undefined && courseId !== null) {
@@ -97,7 +97,7 @@ export default class Data {
         console.log(course);
         console.log(credentials);
             if ( response.status === 201 ) {
-              return console.log('success');
+              console.log('success')
             }
             else if ( response.status === 400 ) {
               return response.json().then( data => {

@@ -53,6 +53,18 @@ header nav a:hover {
     color: #fff;
 }
 
+#error_display_div {
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: rgb(175, 30, 144);
+}
+
+.error_display {
+    width: 100%;
+}
+
 .header--signedin li {
     text-align: right;
     line-height: 1.25;

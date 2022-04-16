@@ -14,7 +14,8 @@ class CreateCourse extends Component {
             title: '',
             description: '',
             estimatedTime: '',
-            materialsNeeded: ''
+            materialsNeeded: '',
+            errors: null
         }
     }
     state = {
@@ -41,24 +42,38 @@ class CreateCourse extends Component {
         //Otherwise, redirect to /signin
         if ( this.props.context.authenticatedUser !== null ) {
             let owner = this.props.context.authenticatedUser;
-
-        
+          
+        function ErrorsDisplay() {
+         return (
+           <div className='error_display' id='error_display_div'>
+              <div className='error_display'>
+              <h1 className='error_display'>{errors}</h1>
+              </div>
+           </div>
+         )
+          
+      }
 
         return (
             <div id='CreateCourse_div'>
             <div className="wrap header--flex">
                 <div className="wrap">
+                
                     <h2>Create Course</h2>
+                    
                     <Form
                         cancel={ this.cancel }
                         errors={ errors }
                         submit={ this.submit }
                         submitButtonText="Create"
                         elements={ () => (
+                          
                             <React.Fragment>
+                              
                                 <div className="main--flex">
+                                
                                     <div>
-                                       
+                                    
                                         <label htmlFor="courseTitle">Course Title</label>
                                         <input id="courseTitle" name="title" type="text" value={title} onChange={ this.change }/>
 
@@ -76,6 +91,7 @@ class CreateCourse extends Component {
                                         </textarea>
                                     </div>
                                 </div>
+                                <ErrorsDisplay errors={this.state.errors}/>
                         </React.Fragment>
                         )}/>
                     
@@ -99,31 +115,35 @@ class CreateCourse extends Component {
         });
       }
 
+
       //CLEARED FOR ERRORS
     submit = () => {
         const { context } = this.props;
-        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
+        const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password, errors } = this.state;
+        
         const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
-        const errors = [];
-        errors.push(this.state.errors);
-        if (errors === null) {
-            try {
-                context.data.createCourse( course, credentials );
-                this.props.navigate(`/`);
-            } catch(error) {
-                 console.log(error)
-            }
-
-        } else if (!course.title) {
-            return <p>Course title is required</p>
-        } else if (!course.description) {
-            return <p>Course description is required</p>
-        } else { 
-            return <Error error={'Oops, this feature is not ready yet'}/>
-        }
-
+        
+        if (!title && !description) {
+          this.setState({errors: 'A title and a description are required'})
+        } else if (!title) {
+          this.setState({errors: 'A title is required'})
+        } else if (!description) {
+          this.setState({errors: 'A description is required'})
+        } else {
+          try {
+            context.data.createCourse( course, credentials );
+            this.props.navigate('/');
+       } catch(error) {
+            return <Error error={error.message}/>
     }
+        }
+    }
+
+cancel = () => {
+  this.props.navigate('/');
+}
+
 }
 
 export default withNavigation( CreateCourse );
