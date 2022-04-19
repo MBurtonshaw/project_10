@@ -71,33 +71,44 @@ export default class Data {
   async createCourse( {userId, title, description, estimatedTime, materialsNeeded, emailAddress, password} ) {
       const response = await this.api( '/courses', 'POST', {
         userId, title, description, estimatedTime, materialsNeeded
-        }, true, {emailAddress, password} ).then( response => {
-          return response;
-        }).catch(err => {return err});
-    } 
+        }, true, {emailAddress, password} );
+        
+        if ( response.status === 201 ) {
+          console.log('success')
+        }
+        else if ( response.status === 400 ) {
+          return response.json().then( data => {
+            let message = data.errors;
+            return message;
+          });
+        }     else if ( response.status === 401 ) {
+          return response.json().then( data => {
+            let message = data.errors;
+            return message;
+        })
+      } 
+    }
+  
 
       async updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password ) {
-        if (courseId !== undefined && courseId !== null) {
 
         const course = {userId, title, description, estimatedTime, materialsNeeded};
         const credentials = {emailAddress, password};
         const response = await this.api( `/courses/${courseId}`, 'PUT', course, true, credentials );
 
-            if ( response.status === 201 ) {
-              console.log('success')
-            }
-            else if ( response.status === 400 ) {
-              return response.json().then( data => {
-                let message = data.errors;
-                return message;
-              });
-            }     else if ( response.status === 401 ) {
-              return 'Unauthorized'
-            }
-            else {
-              throw new Error();
-            }
-          }
-        } 
+        if ( response.status === 201 ) {
+          console.log('success')
+        }
+        else if ( response.status === 400 ) {
+          return response.json().then( data => {
+            let message = data.errors;
+            return message;
+          });
+        }     else if ( response.status === 401 ) {
+          return response.json().then( data => {
+            let message = data.errors;
+            return message;
+        })
+      }
   }
-
+}

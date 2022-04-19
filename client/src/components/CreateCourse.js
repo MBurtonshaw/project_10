@@ -128,12 +128,17 @@ class CreateCourse extends Component {
         } else {*/
 
           try {
-            context.data.createCourse( course, credentials );
-            //this.props.navigate('/');
+            context.data.createCourse( course, credentials ).then(errors=>{
+              if (errors) {
+                this.setState({errors: errors})
+              }
+              else {
+                this.props.navigate('/');
+              }
+            });
+            
        } catch(error) {
-            if (error.status === 400) {
-              console.log('yay')
-            }
+            console.log(error)
           }
     
     }

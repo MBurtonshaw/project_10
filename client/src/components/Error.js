@@ -4,8 +4,8 @@ import withNavigation from '../HOCs/Nav';
 class Error extends Component {
     render() {
         let mistake;
-        if (this.props.error) {
-            mistake = this.props.error
+        if (this.props.errors) {
+            mistake = [this.props.errors];
         } else {
             mistake = 'Oops! Something went wrong'
     }
@@ -13,7 +13,7 @@ class Error extends Component {
           <div id='Error_div'>
             <div className="wrap">
                 <h2>Error</h2>
-                <p>{mistake}</p>
+                {mistake}
             </div>
         </div>
       )

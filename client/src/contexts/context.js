@@ -75,21 +75,6 @@ export class Provider extends Component {
     }
   }
 
-  updateCourse = async ( courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password ) => {
-    if ( this.state.authenticatedUser.user.emailAddress !== null) {
-      try {
-        console.log(courseId);
-        await this.data.updateCourse(
-          courseId, userId, description, title, estimatedTime, materialsNeeded, emailAddress, password
-        );
-      } catch(error) {
-        this.setState(error);
-      }
-    } else {
-      return <Forbidden />
-    }
-  }
-
   deleteCourse = async (courseId, emailAddress, password) => {
     if ( this.state.authenticatedUser !== null) {
       try {
@@ -99,6 +84,20 @@ export class Provider extends Component {
       }
     }
   }
+
+  updateCourse = async (courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
+    if ( this.state.authenticatedUser.user.emailAddress !== null) {
+      try {
+        await this.data.updateCourse({
+          courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password
+        });
+      } catch(error) {
+        return error;
+      }
+    } else {
+      return <Forbidden />
+    }
+}
 
   createCourse = async (userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
     if ( this.state.authenticatedUser.user.emailAddress !== null) {
