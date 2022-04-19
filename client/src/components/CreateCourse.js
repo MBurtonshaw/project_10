@@ -119,20 +119,23 @@ class CreateCourse extends Component {
         const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
         
-        if (!title && !description) {
+        /*if (!title && !description) {
           this.setState({errors: 'A title and a description are required'})
         } else if (!title) {
           this.setState({errors: 'A title is required'})
         } else if (!description) {
           this.setState({errors: 'A description is required'})
-        } else {
+        } else {*/
+
           try {
             context.data.createCourse( course, credentials );
-            this.props.navigate('/');
+            //this.props.navigate('/');
        } catch(error) {
-            return <Error error={error.message}/>
-    }
-        }
+            if (error.status === 400) {
+              console.log('yay')
+            }
+          }
+    
     }
 
   cancel = () => {

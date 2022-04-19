@@ -107,7 +107,7 @@ export class Provider extends Component {
           userId, title, description, estimatedTime, materialsNeeded, emailAddress, password
         });
       } catch(error) {
-        console.log(error.message)
+        return error;
       }
     } else {
       return <Forbidden />
