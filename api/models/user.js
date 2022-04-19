@@ -40,13 +40,13 @@ module.exports = (sequelize, DataTypes) => {
             },
             validate: {
                 notNull: {
-                    msg: 'Please enter a valid email addressx'
+                    msg: 'Please enter a valid email address'
                 },
                 notEmpty: {
-                    msg: 'Please enter a valid email addressy'
+                    msg: 'Please enter a valid email address'
                 },
                 isEmail: {
-                    msg: 'Please enter a valid email addressz'
+                    msg: 'Please enter a valid email address'
                 }
             },
         },

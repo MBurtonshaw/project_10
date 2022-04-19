@@ -22,6 +22,16 @@ class UserSignUp extends Component {
       errors,
     } = this.state;
 
+    function ErrorsDisplay() {
+      return (
+        <div className='error_display' id='error_display_div'>
+           <div className='error_display'>
+           <h1 className='error_display'>{errors}</h1>
+           </div>
+        </div>
+      )
+   }
+
     return (
         <div className="form--centered">
           <h2>Sign Up</h2>
@@ -61,6 +71,7 @@ class UserSignUp extends Component {
                   value={ password } 
                   onChange={ this.change } 
                   placeholder="Password" />
+                  <ErrorsDisplay />
               </React.Fragment>
             )} />
           <p>
