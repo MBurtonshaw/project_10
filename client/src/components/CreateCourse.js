@@ -126,14 +126,6 @@ class CreateCourse extends Component {
         
         const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
-        
-        /*if (!title && !description) {
-          this.setState({errors: 'A title and a description are required'})
-        } else if (!title) {
-          this.setState({errors: 'A title is required'})
-        } else if (!description) {
-          this.setState({errors: 'A description is required'})
-        } else {*/
 
           try {
             context.data.createCourse( course, credentials ).then(errors=>{
