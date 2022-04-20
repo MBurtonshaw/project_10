@@ -1,5 +1,8 @@
 To launch app:
----navigate to /api
----'npm' start from there
+--- navigate to /client
+--- run 'npm install'
+--- navigate to /api
+--- run 'npm install'
+--- run 'npm start' from /api
 
 API & Client will run concurrently
