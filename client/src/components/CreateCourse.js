@@ -38,8 +38,8 @@ class CreateCourse extends Component {
             errors,
           } = this.state;
 
-        if ( this.props.context.authenticatedUser !== null ) {
-            let owner = this.props.context.authenticatedUser;
+
+        let owner = this.props.context.authenticatedUser;
           
         function ErrorsDisplay() {
           if (errors) {
@@ -104,10 +104,8 @@ class CreateCourse extends Component {
                 </div>
             </div>
             )
-        } else {
-            props.navigate( '/signin' );
-        }
-    }
+        } 
+    
 
     change = ( event ) => {
         const name = event.target.name;

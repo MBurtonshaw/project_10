@@ -17,10 +17,8 @@ import PrivateRoute from './HOCs/PrivateRoute';
 
 const CoursesWithContext = withContext( Courses );
 const CourseDetailWithContext = withContext( CourseDetail );
-const CreateCourseWithContext = withContext( CreateCourse );
 const UserSignUpWithContext = withContext( UserSignUp );
 const UserSignInWithContext = withContext( UserSignIn );
-const UpdateCourseWithContext = withContext( UpdateCourse );
 const UserSignOutWithContext = withContext( UserSignOut );
 const HeaderWithContext = withContext( Header );
 
@@ -38,11 +36,16 @@ function App() {
             <Route 
               path='/courses/create' 
               element={ <PrivateRoute>
-                          <CreateCourseWithContext/>
+                          <CreateCourse/>
                         </PrivateRoute> }>
               </Route>
             <Route path='/courses/:id' element={ <CourseDetailWithContext/> }></Route>
-            <Route path='/courses/:id/update' element={ <UpdateCourseWithContext/> }></Route>
+            <Route 
+              path='/courses/:id/update' 
+              element={ <PrivateRoute>
+                          <UpdateCourse/>
+                        </PrivateRoute> }>
+              </Route>
             <Route path='/signin' element={ <UserSignInWithContext/> }></Route>
             <Route path='/signup' element={ <UserSignUpWithContext/> }></Route>
             <Route path='/signout' element={ <UserSignOutWithContext/> }></Route>

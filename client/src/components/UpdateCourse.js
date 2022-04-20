@@ -105,7 +105,7 @@ class UpdateCourse extends Component {
             </div>
             )
         } else {
-            this.props.navigate( '/signin' );
+            return <Forbidden />
         }
     }
 
