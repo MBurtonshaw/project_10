@@ -5,22 +5,25 @@ import Error from './Error';
 export default function Courses( props ) {
 
   const [ courseList, setCourseList ] = useState([ '' ]);
+  const [ courseOwner, setCourseOwner ] = useState([ '' ]);
   const authenticatedUser = props.context.authenticatedUser;
 
 
   
   async function loader() {
-    try{
-      await axios.get( 'http://localhost:5000/api/courses' ).then(
-        response => setCourseList(( response.data ).map( data => data ))
-      ).then(
-          console.log( 'Courses.js: courses data saved to state -- success' )
-        )} catch( error ) {
+      try{
+        return(
+          await axios.get( `http://localhost:5000/api/courses` ).then(
+              response => setCourseList( response.data )
+        ));
+      } catch( error ) {
         console.log( error.message );
       }
-    };  
+  };
+    
+    useEffect( () => { loader() }, [ setCourseList ] );
 
-    useEffect( () => { loader() }, [ setCourseList ]);
+    
 
     try {
       if ( courseList ) {

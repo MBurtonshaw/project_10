@@ -20,5 +20,4 @@ export default function PrivateRoute() {
       else if (window.location.href === `http://localhost:3000/courses/${id}/update`) {
             return <UpdateCourse context={context} navigate={navigate}/>
       }
-    }
-
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Data from '../HOCs/Data';
 import Cookies from 'js-cookie';
 import Forbidden from '../components/Forbidden';
+import axios from 'axios';
 
 export const Context = React.createContext(); 
 
@@ -36,7 +37,8 @@ export class Provider extends Component {
         signOut: this.signOut,
         updateCourse: this.updateCourse,
         deleteCourse: this.deleteCourse,
-        createCourse: this.createCourse
+        createCourse: this.createCourse,
+        load_courses: this.load_courses
       }
     }
 
@@ -47,7 +49,6 @@ export class Provider extends Component {
     );
   }
 
-  
   signIn = async ( emailAddress, password ) => {
     const user = await this.data.getUser( emailAddress, password );
     
