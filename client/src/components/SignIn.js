@@ -18,6 +18,24 @@ class UserSignIn extends Component {
       errors,
     } = this.state;
 
+    function ErrorsDisplay() {
+      if (errors) {
+        let errors_list = errors.map((error, index) => 
+          <li key={index} className='error_display'>{error}</li>
+        );
+     return (
+       <div className='error_display' id='error_display_div'>
+          <div className='error_display'>
+          <ul className='error_display'>
+            {errors_list}
+          </ul>
+          </div>
+       </div>
+     )
+      }
+      return null;
+  }
+
     return (
         <div className="form--centered">
           <h2>Sign In</h2>
@@ -42,7 +60,8 @@ class UserSignIn extends Component {
                   type="password"
                   value={ password } 
                   onChange={ this.change } 
-                  placeholder="Password" />                
+                  placeholder="Password" />          
+                  <ErrorsDisplay />      
               </React.Fragment>
             )} />
           <p>

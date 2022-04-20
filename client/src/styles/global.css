@@ -56,13 +56,14 @@ header nav a:hover {
 #error_display_div {
     width: 100%;
     text-align: center;
-    margin-top: 1em;
+    margin-top: 0.5em;
     margin-bottom: 1em;
     color: rgb(175, 30, 144);
 }
 
 .error_display {
     width: 100%;
+    list-style: none;
 }
 
 .header--signedin li {

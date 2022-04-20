@@ -13,10 +13,11 @@ import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 import Error from './components/Error';
 import withContext, { Provider } from './contexts/Context';
+import PrivateRoute from './HOCs/PrivateRoute';
 
 const CoursesWithContext = withContext( Courses );
 const CourseDetailWithContext = withContext( CourseDetail );
-const CreateCourseWithContext = withContext( CreateCourse );
+const CreateCourse_context_private = withContext(PrivateRoute( CreateCourse ));
 const UserSignUpWithContext = withContext( UserSignUp );
 const UserSignInWithContext = withContext( UserSignIn );
 const UpdateCourseWithContext = withContext( UpdateCourse );
@@ -34,7 +35,7 @@ function App() {
         <HeaderWithContext />
           <Routes>
             <Route exact path='/' element={ <CoursesWithContext/> }></Route>
-            <Route path='/courses/create' element={ <CreateCourseWithContext/> }></Route>
+            <Route path='/courses/create' element={ <CreateCourse_context_private/> }></Route>
             <Route path='/courses/:id' element={ <CourseDetailWithContext/> }></Route>
             <Route path='/courses/:id/update' element={ <UpdateCourseWithContext/> }></Route>
             <Route path='/signin' element={ <UserSignInWithContext/> }></Route>
