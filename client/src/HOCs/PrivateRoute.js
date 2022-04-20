@@ -4,11 +4,13 @@ import Forbidden from '../components/Forbidden';
 
 function privateRoute( Component ) {
    //conditional from context
-   
-  
-        return (props => <Component { ...props } />)
-    
-    
+      if (1===1) {
+      //if (this.props.context.authenticatedUser !== null) {
+            return (props => <Component { ...props } />)
+      }
+    //} else {
+          //return <Forbidden/>
+          //}
   }
 
   export default privateRoute;
