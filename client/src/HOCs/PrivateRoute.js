@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import withContext from '../contexts/Context';
 import Forbidden from '../components/Forbidden';
+import { Context } from '../contexts/Context';
 
-function privateRoute( Component ) {
-   //conditional from context
-      if (1===1) {
-      //if (this.props.context.authenticatedUser !== null) {
-            return (props => <Component { ...props } />)
-      }
-    //} else {
-          //return <Forbidden/>
-          //}
-  }
+export default function PrivateRoute( ) {
+      const context = useContext(Context);
+      console.log(context)
+      return 'hi'
+    }
 
-  export default privateRoute;
