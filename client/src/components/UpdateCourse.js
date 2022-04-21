@@ -4,6 +4,7 @@ import withParameters from '../HOCs/Params';
 import Forbidden from './Forbidden';
 import Form from './Form';
 import Error from './Error';
+import axios from 'axios';
 
 class UpdateCourse extends Component {
   constructor(props) {

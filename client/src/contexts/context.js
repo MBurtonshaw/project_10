@@ -38,7 +38,8 @@ export class Provider extends Component {
         updateCourse: this.updateCourse,
         deleteCourse: this.deleteCourse,
         createCourse: this.createCourse,
-        load_courses: this.load_courses
+        load_courses: this.load_courses,
+        getCourse: this.getCourse
       }
     }
 
@@ -99,6 +100,14 @@ export class Provider extends Component {
       return <Forbidden />
     }
 }
+
+  getCourse = async(id) => {
+    try {
+      await this.data.getCourse(id).then(response=> {return response});
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   createCourse = async (userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
     if ( this.state.authenticatedUser.user.emailAddress !== null) {

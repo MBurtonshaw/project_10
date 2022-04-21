@@ -67,7 +67,6 @@ export default class Data {
     }
   }
 
-
   async createCourse( {userId, title, description, estimatedTime, materialsNeeded, emailAddress, password} ) {
       const response = await this.api( '/courses', 'POST', {
         userId, title, description, estimatedTime, materialsNeeded
