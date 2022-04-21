@@ -12,18 +12,7 @@ export default function PrivateRoute() {
       const context = useContext(Context);
       console.log(context)
       let { id } = useParams();
-
-      async function getCourseId(id) {
-            try {
-                  await axios.get(`https://localhost:5000/api/courses/${id}`).then(
-                        response => console.log(response)
-                  )
-            } catch(error) {
-                  console.log(error);
-            }
-      }
-
-      getCourseId(id);
+      let { courseOwnerId } = useParams();
 
       if (context.authenticatedUser === null || context.authenticatedUser === undefined) {
             return <Forbidden context={context}/>
@@ -31,7 +20,11 @@ export default function PrivateRoute() {
       else if (window.location.href === `http://localhost:3000/courses/create`) {
             return <CreateCourse context={context} navigate={navigate}/>
       }
-      else if (window.location.href === `http://localhost:3000/courses/${id}/update`) {
-            return <UpdateCourse context={context} navigate={navigate}/>
+      else if (window.location.href === `http://localhost:3000/courses/${id}/update?owner=${courseOwnerId}`) {
+            
+                  return <UpdateCourse context={context} navigate={navigate} courseOwnerId={courseOwnerId}/>
+            
+      } else if (window.location.href === `http://localhost:3000/courses/${id}/update`) {
+            return <UpdateCourse context={context} navigate={navigate} courseOwnerId={courseOwnerId}/>
       }
 }
