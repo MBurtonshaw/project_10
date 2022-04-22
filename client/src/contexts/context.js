@@ -77,6 +77,11 @@ export class Provider extends Component {
     }
   }
 
+  getCourse = async(id) => {
+    let course = await this.data.getCourse(id);
+    return course;
+  }
+
   deleteCourse = async (courseId, emailAddress, password) => {
     if ( this.state.authenticatedUser !== null) {
       try {
@@ -100,14 +105,6 @@ export class Provider extends Component {
       return <Forbidden />
     }
 }
-
-  getCourse = async(id) => {
-    try {
-      await this.data.getCourse(id).then(response=> {return response});
-    } catch(error) {
-      console.log(error)
-    }
-  }
 
   createCourse = async (userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
     if ( this.state.authenticatedUser.user.emailAddress !== null) {

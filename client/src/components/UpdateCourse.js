@@ -18,7 +18,7 @@ class UpdateCourse extends Component {
       description: '',
       estimatedTime: '',
       materialsNeeded: '',
-      course: '',
+      courseOwnerId: '',
       errors: ''
     }
 }
@@ -30,7 +30,8 @@ class UpdateCourse extends Component {
         materialsNeeded: '',
         emailAddress: '',
         password: '',
-        errors: [],
+        courseOwnerId: '',
+        errors: []
       }
 
     render(props) {
@@ -47,6 +48,22 @@ class UpdateCourse extends Component {
         if (this.props.context.authenticatedUser !== null && id !== null ) {
          
             let owner = this.props.context.authenticatedUser;
+
+            function findOwner(courseId) {
+              if (courseId) {
+                try {
+                  this.props.context.actions.getCourse(courseId).then(
+                    response => this.setState({courseOwnerId: response.course.User.id})
+                  );
+                  } catch(error) {
+                    console.log(error)
+                  } 
+                } else {
+                  console.log('no id')
+                }
+            }
+            findOwner(id);
+
 
             function ErrorsDisplay() {
               if (errors) {
