@@ -53,8 +53,12 @@ export default function CourseDetail( props ) {
 
   useEffect( () => { loader() }, [ setCourseDetails ] );
   useEffect( () => { loader_2() }, [ setCourseOwner ] );
+  useEffect(()=>{ if ( courseOwner === null || courseOwner === undefined ) {
+    navigate('/notFound');
+  }
+});
 
-  if ( courseOwner !== null ) {
+  if ( courseOwner !== null || courseOwner !== undefined ) {
     let owner = courseOwner;
     
       try {
@@ -84,7 +88,7 @@ export default function CourseDetail( props ) {
                     <h3 className="course--detail--title">Materials Needed</h3>
                     <ul className="course--detail--list">
                       {/*rendering course materials w markdown*/}
-                      <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` ) }</li>
+                      <li className='course--detail--list--item'>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` ) }</li>
                     </ul>
                   </div>
 
@@ -120,7 +124,7 @@ export default function CourseDetail( props ) {
                           <h3 className="course--detail--title">Materials Needed</h3>
                           <ul className="course--detail--list">
                             {/*rendering course materials w markdown*/}
-                            <li>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` )}</li>
+                            <li className='course--detail--list--item'>{ MarkdownToHtml( `${ courseDetails.materialsNeeded }` )}</li>
                           </ul>
                         </div>
   
@@ -129,11 +133,9 @@ export default function CourseDetail( props ) {
                   </div>
                 </div>
               )
-        } else {
-          return <Error error={'Something went wrong'}/>
-        }
+        } 
       } catch(error) {
         return <Error error={error.message}/>
       }
-    }
+    } 
   }

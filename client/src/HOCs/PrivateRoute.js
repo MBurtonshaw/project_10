@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import withContext from '../contexts/Context';
 import Forbidden from '../components/Forbidden';
 import { Context } from '../contexts/Context';
 import CreateCourse from '../components/CreateCourse';
 import UpdateCourse from '../components/UpdateCourse';
-import axios from 'axios';
 
 export default function PrivateRoute() {
       const navigate = useNavigate();

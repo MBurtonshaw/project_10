@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Data from '../HOCs/Data';
 import Cookies from 'js-cookie';
 import Forbidden from '../components/Forbidden';
-import axios from 'axios';
 
 export const Context = React.createContext(); 
 

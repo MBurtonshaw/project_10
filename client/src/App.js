@@ -51,6 +51,7 @@ function App() {
             <Route path='/signout' element={ <UserSignOutWithContext/> }></Route>
             <Route path='/forbidden' element={ <Forbidden/> }></Route>
             <Route path='/error' element={ <Error /> }></Route>
+            <Route path='/notFound' element={ <NotFound/> }></Route>
             <Route path='*' element={ <NotFound/> }></Route>
           </Routes>
         </Provider>

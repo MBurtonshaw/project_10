@@ -60,7 +60,9 @@ header nav a:hover {
     margin-bottom: 1em;
     color: rgb(175, 30, 144);
 }
-
+.course--detail--list--item {
+    list-style: none;
+}
 .error_display {
     width: 100%;
     list-style: none;
