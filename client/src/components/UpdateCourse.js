@@ -34,6 +34,21 @@ class UpdateCourse extends Component {
         errors: []
       }
 
+      componentDidMount() {
+        let { id } = this.props.params;
+        if (id) {
+          try {
+            this.props.context.actions.getCourse(id).then(
+              response => this.setState({courseOwnerId: response.course.User.id})
+            );
+            } catch(error) {
+              console.log(error)
+            } 
+          } else {
+            console.log('no id')
+          }
+      }
+
     render(props) {
         const {
             title,
@@ -45,25 +60,9 @@ class UpdateCourse extends Component {
 
           const { id } = this.props.params;
 
-        if (this.props.context.authenticatedUser !== null && id !== null ) {
+        if (this.state.userId === this.state.courseOwnerId ) {
          
             let owner = this.props.context.authenticatedUser;
-
-            function findOwner(courseId) {
-              if (courseId) {
-                try {
-                  this.props.context.actions.getCourse(courseId).then(
-                    response => this.setState({courseOwnerId: response.course.User.id})
-                  );
-                  } catch(error) {
-                    console.log(error)
-                  } 
-                } else {
-                  console.log('no id')
-                }
-            }
-            findOwner(id);
-
 
             function ErrorsDisplay() {
               if (errors) {
