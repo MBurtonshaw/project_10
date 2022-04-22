@@ -39,7 +39,13 @@ class UpdateCourse extends Component {
         if (id) {
           try {
             this.props.context.actions.getCourse(id).then(
-              response => this.setState({courseOwnerId: response.course.User.id})
+              response => this.setState({
+                title: response.course.title,
+                description: response.course.description,
+                estimatedTime: response.course.estimatedTime,
+                materialsNeeded: response.course.materialsNeeded,
+                courseOwnerId: response.course.User.id
+              })
             );
             } catch(error) {
               console.log(error)
