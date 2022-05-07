@@ -129,7 +129,8 @@ class UpdateCourse extends Component {
               </div>
               )
             } else {
-                return <Forbidden/>
+              return 'hi'
+              //this.props.navigate('/');
             }
           } else {
             return <NotFound/>
