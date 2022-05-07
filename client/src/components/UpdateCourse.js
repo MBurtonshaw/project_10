@@ -129,8 +129,7 @@ class UpdateCourse extends Component {
               </div>
               )
             } else {
-              return 'hi'
-              //this.props.navigate('/');
+              this.props.navigate('/');
             }
           } else {
             return <NotFound/>
