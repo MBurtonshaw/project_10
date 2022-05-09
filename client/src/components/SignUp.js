@@ -119,8 +119,7 @@ class UserSignUp extends Component {
           );
         }
       }).catch(err => {
-        console.log( err );
-        this.props.navigate( '/not_found' );
+        this.props.navigate( '/error', {err} );
       });
   }
 

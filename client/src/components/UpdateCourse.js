@@ -157,21 +157,20 @@ class UpdateCourse extends Component {
               try {
                 context.data.updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, this.state.emailAddress, this.state.password ).then(
                   errors => {
-                    if (errors) {
+                    if (errors.length) {
                       this.setState({errors: errors});
                     } else {
                       this.props.navigate(`/courses/${courseId}`);
                     }
                   }
                 );
-                //this.props.navigate(`/courses/${this.props.params.id}`);
             } catch(error) {
-                console.log(error);
+              this.props.navigate( '/error', {error} );
             }
           
 
     } else {
-      return <Forbidden />
+      this.props.navigate('/forbidden');
     }
     }
     cancel = () => {

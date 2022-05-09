@@ -30,7 +30,12 @@ export default function CourseDetail( props ) {
     if ( id ) {
     try {
       await axios.get( `http://localhost:5000/api/courses/${ id }` ).then(
-        response => setCourseOwner( response.data.course.User )
+        response => {
+          if (!response.data.course) {
+            navigate('/notFound');
+          } else {
+            setCourseOwner( response.data.course.User )}
+          }
         )
       } catch(error) {
         console.log(error)

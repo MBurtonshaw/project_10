@@ -29,11 +29,10 @@ export default class Data {
     if ( response.status === 200 ) {
       return response.json().then( data => data );
     }
-    else if ( response.status === 401 ) {
-      return null;
-    }
-    else {
-      throw new Error();
+    else if ( response.status === 400 || response.status === 401 || response.status === 500 ) {
+      return response.json().then( data => {
+        return data.errors
+      });
     }
   }
   
@@ -42,13 +41,10 @@ export default class Data {
     if ( response.status === 201 ) {
       return [];
     }
-    else if ( response.status === 400 ) {
+    else if ( response.status === 400 || response.status === 401 || response.status === 500 ) {
       return response.json().then( data => {
         return data.errors;
       });
-    }
-    else {
-      throw new Error();
     }
   }
 
@@ -58,16 +54,10 @@ export default class Data {
     if ( response.status === 200 ) {
       return response.json([]).then( data => data );
     }
-    else if ( response.status === 400 ) {
+    else if ( response.status === 400 || response.status === 401 || response.status === 500 ) {
       return response.json().then( data => {
         return data.errors;
       });
-    }
-    else if ( response.status === 401 ) {
-      return null;
-    }
-    else {
-      throw new Error();
     }
   }
 
@@ -78,11 +68,8 @@ export default class Data {
     if ( response.status === 200 ) {
       return response.json([]).then( data => data );
     }
-    else if ( response.status === 401 ) {
+    else if ( response.status === 400 || response.status === 401 || response.status === 500 ) {
       return null;
-    }
-    else {
-      throw new Error();
     }
   }
 
@@ -94,18 +81,12 @@ export default class Data {
         if ( response.status === 201 ) {
           console.log('success')
         }
-        else if ( response.status === 400 ) {
+        else if ( response.status === 400 || response.status === 401 || response.status === 500 ) {
           return response.json().then( data => {
-            let message = data.errors;
-            return message;
+            return data.errors;
           });
-        }     else if ( response.status === 401 ) {
-          return response.json().then( data => {
-            let message = data.errors;
-            return message;
-        })
-      } 
-    }
+        }
+      }
   
 
       async updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password ) {
@@ -117,16 +98,10 @@ export default class Data {
         if ( response.status === 201 ) {
           console.log('success')
         }
-        else if ( response.status === 400 ) {
+        else if ( response.status === 400 || response.status === 401 || response.status === 500 ) {
           return response.json().then( data => {
-            let message = data.errors;
-            return message;
+            return data.errors;
           });
-        }     else if ( response.status === 401 ) {
-          return response.json().then( data => {
-            let message = data.errors;
-            return message;
-        })
+        }
       }
-  }
 }
