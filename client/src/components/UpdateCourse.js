@@ -1,10 +1,10 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
 import withParameters from '../HOCs/Params';
 import Forbidden from './Forbidden';
 import Form from './Form';
 import NotFound from './NotFound';
-import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 class UpdateCourse extends Component {
   constructor(props) {
@@ -57,6 +57,13 @@ class UpdateCourse extends Component {
             this.props.navigate('/Forbidden');
           }*/
       }
+
+      componentWillUnmount() {
+        this.setState = (state, callback)=>{
+            return;
+        }
+    }
+
 
     render() {
         const {
@@ -129,10 +136,10 @@ class UpdateCourse extends Component {
               </div>
               )
             } else {
-              this.props.navigate('/');
+              return <Navigate to="/forbidden" replace={true}/>
             }
           } else {
-            return <NotFound/>
+            return <Navigate to="/notFound" replace={true}/>
           }
     }
 
