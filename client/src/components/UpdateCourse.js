@@ -37,26 +37,25 @@ class UpdateCourse extends Component {
       componentDidMount() {
         let { id } = this.props.params;
         if (id) {
-            this.props.context.actions.getCourse(id).then(
-              response => {
-                if (response.course !== null) {
-                  this.setState({
-                    title: response.course.title,
-                    description: response.course.description,
-                    estimatedTime: response.course.estimatedTime,
-                    materialsNeeded: response.course.materialsNeeded,
-                    courseOwnerId: response.course.User.id
-                  });
-              } else {
-                return <NotFound/>
+          this.props.context.actions.getCourse(id).then(
+            response => {
+              if (!response.course) {
+                this.props.navigate('/notFound');
               }
-            }
-            )}
-
-          /*if (this.state.userId !== this.state.courseOwnerId) {
-            this.props.navigate('/Forbidden');
-          }*/
-      }
+              if (response.course.userId !== this.props.context.authenticatedUser.user.id) {
+                this.props.navigate('/forbidden');
+              } else {
+                this.setState({
+                  title: response.course.title,
+                  description: response.course.description,
+                  estimatedTime: response.course.estimatedTime,
+                  materialsNeeded: response.course.materialsNeeded,
+                  courseOwnerId: response.course.User.id
+                });
+              }
+            })
+          }
+        }
 
       componentWillUnmount() {
         this.setState = (state, callback)=>{
@@ -73,8 +72,7 @@ class UpdateCourse extends Component {
             materialsNeeded,
             errors,
           } = this.state;
-          if (this.state.courseOwnerId !== null) {
-            if (this.state.userId === this.state.courseOwnerId ) {
+
           
               let owner = this.props.context.authenticatedUser;
 
@@ -135,12 +133,6 @@ class UpdateCourse extends Component {
                   </div>
               </div>
               )
-            } else {
-              return <Navigate to="/forbidden" replace={true}/>
-            }
-          } else {
-            return <Navigate to="/notFound" replace={true}/>
-          }
     }
 
     change = ( event ) => {
