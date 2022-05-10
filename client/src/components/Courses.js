@@ -5,10 +5,6 @@ import Error from './Error';
 export default function Courses( props ) {
 
   const [ courseList, setCourseList ] = useState([ '' ]);
-  const [ courseOwner, setCourseOwner ] = useState([ '' ]);
-  const authenticatedUser = props.context.authenticatedUser;
-
-
   
   async function loader() {
       try{

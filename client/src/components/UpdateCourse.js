@@ -4,7 +4,6 @@ import withParameters from '../HOCs/Params';
 import Forbidden from './Forbidden';
 import Form from './Form';
 import NotFound from './NotFound';
-import { Navigate } from 'react-router-dom';
 
 class UpdateCourse extends Component {
   constructor(props) {
