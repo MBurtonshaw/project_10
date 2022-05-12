@@ -77,8 +77,16 @@ export class Provider extends Component {
   }
 
   getCourse = async(id) => {
-    let course = await this.data.getCourse(id);
-    return course;
+    try {
+      let course = await this.data.getCourse(id);
+      return course;
+    } catch(error) {
+      this.setState({
+        error
+      });
+    }
+
+    
   }
 
   deleteCourse = async (courseId, emailAddress, password) => {

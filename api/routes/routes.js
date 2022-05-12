@@ -85,6 +85,7 @@ router.get('/courses', asyncHandler(async(req, res) => {
         exclude: ['createdAt', 'updatedAt']
       },
     });
+    res.status(500).send();
     res.status(200).json(courses);
 }));
 
