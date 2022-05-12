@@ -46,8 +46,10 @@ router.delete('/users/:id', authenticateUser, asyncHandler( async(req, res) => {
 
 router.post('/users', asyncHandler( async(req, res) => {
   //If there is a req.body being submitted, proceed
-    if (req.body) {
-    try {
+
+    if (req.body && req.body.password !== null || req.body.password !== '' || req.body.password !== undefined) {
+
+      try {
       //Create a new User w req.body, encrypt the password, and set its location header
       //Password encryption is first, before User is created & added to database
         req.body.password = bcrypt.hashSync(req.body.password, 10);
@@ -56,7 +58,6 @@ router.post('/users', asyncHandler( async(req, res) => {
         //res after creation
         res.setHeader('Location', '/');
         res.status(201).end();
-        
         } catch (error) {
           //If any error thrown is classified as a Sequelize validation error, map those errors
             if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
@@ -85,7 +86,6 @@ router.get('/courses', asyncHandler(async(req, res) => {
         exclude: ['createdAt', 'updatedAt']
       },
     });
-    res.status(500).send();
     res.status(200).json(courses);
 }));
 

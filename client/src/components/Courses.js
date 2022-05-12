@@ -15,21 +15,20 @@ export default function Courses( props ) {
         ));
       } catch( error ) {
         setMistakes(error.response.status + ' ' + error.response.statusText);
-        console.log(mistakes)
       }
   };
     
     useEffect( () => { loader() }, [ setCourseList ] );
 
-    function ErrorsDisplay() {
+    function ServerErrorDisplay() {
       if (mistakes !== null) {
-        return null;
-      } else {
+        let errors_list = 
+          <li key={1} className='error_display'>{mistakes}</li>;
      return (
-       <div className='error_display' id='error_display_div'>
-          <div className='error_display'>
-          <ul className='error_display'>
-           
+       <div className='error_display server_error' id='error_display_div'>
+          <div className='error_display server_error'>
+          <ul className='error_display server_error'>
+            {errors_list}
           </ul>
           </div>
        </div>
@@ -43,8 +42,8 @@ export default function Courses( props ) {
         
         return (
           <div id='Courses_div'>
+            <ServerErrorDisplay />
             <div className="wrap main--grid">
-              <ErrorsDisplay />
               {
                 courseList.map( ( course, index ) => 
                   <div key={ index }>

@@ -53,6 +53,15 @@ header nav a:hover {
     color: #fff;
 }
 
+.signin_ul {
+    text-align: center;
+}
+
+.server_error {
+    font-size: 1.1em;
+    padding: 0.2em;
+}
+
 #error_display_div {
     width: 100%;
     text-align: center;

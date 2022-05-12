@@ -108,19 +108,22 @@ class UserSignUp extends Component {
     const user = { firstName, lastName, emailAddress, password };
 
     //Executing createUser function from Data.js using the above 'user' variable
+   if (user.password !== undefined || user.password !== '' || user.password !== null) {
     context.data.createUser( user ).then(
       errors => {
         if ( errors.length ) {
           this.setState({ errors });
         } else {
-            context.actions.signIn( emailAddress, password ).then(
-            //navigate back to previous page when signed up
-            this.props.navigate( -1 )
-          );
+            context.actions.signIn( emailAddress, password );
+            this.props.navigate('/');
         }
       }).catch(err => {
         this.props.navigate( '/error', {err} );
       });
+   } else {
+     this.setState({errors: 'Please provide a password'});
+   }
+
   }
 
   cancel = () => {

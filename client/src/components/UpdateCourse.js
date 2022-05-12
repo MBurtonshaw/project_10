@@ -152,11 +152,10 @@ class UpdateCourse extends Component {
         const { userId, title, description, estimatedTime, materialsNeeded } = this.state;
     
         if (this.props.params.id !== undefined) {
-
               try {
                 context.data.updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, this.state.emailAddress, this.state.password ).then(
                   errors => {
-                    if (errors.length) {
+                    if (errors) {
                       this.setState({errors: errors});
                     } else {
                       this.props.navigate(`/courses/${courseId}`);
@@ -164,7 +163,7 @@ class UpdateCourse extends Component {
                   }
                 );
             } catch(error) {
-              this.props.navigate( '/error', {error} );
+              this.setState({errors: error});
             }
           
 

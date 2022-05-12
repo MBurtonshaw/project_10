@@ -12,6 +12,7 @@ export default function CourseDetail( props ) {
   const { id } = useParams();
   const [ courseDetails, setCourseDetails ] = useState('');
   const [ courseOwner, setCourseOwner ] = useState('');
+  const [ mistakes, setMistakes ] = useState([]);
 
   async function loader() {
     if ( id ) {
@@ -21,7 +22,7 @@ export default function CourseDetail( props ) {
               response => setCourseDetails( response.data.course )
         ));
       } catch( error ) {
-        console.log( error.message );
+        setMistakes(error.response.status + ' ' + error.response.statusText);
       }
     }
   };
@@ -37,8 +38,8 @@ export default function CourseDetail( props ) {
             setCourseOwner( response.data.course.User )}
           }
         )
-      } catch(error) {
-        console.log(error)
+      } catch( error ) {
+        setMistakes(error.response.status + ' ' + error.response.statusText);
       }
     }
   }
@@ -55,6 +56,23 @@ export default function CourseDetail( props ) {
       return <NotFound />
     }
   };
+
+  function ServerErrorDisplay() {
+    if (mistakes !== null) {
+      let errors_list = 
+        <li key={1} className='error_display'>{mistakes}</li>;
+   return (
+     <div className='error_display server_error' id='error_display_div'>
+        <div className='error_display server_error'>
+        <ul className='error_display server_error'>
+          {errors_list}
+        </ul>
+        </div>
+     </div>
+   )
+    }
+    return null;
+}
 
   useEffect( () => { loader() }, [ setCourseDetails ] );
   useEffect( () => { loader_2() }, [ setCourseOwner ] );
@@ -74,7 +92,7 @@ export default function CourseDetail( props ) {
             <div className="actions--bar">
               <a className="button button-secondary" href="/">Return to List</a>
             </div>
-
+            <ServerErrorDisplay/>
           <div className="wrap">
             <h2>Course Detail</h2>
               <form>

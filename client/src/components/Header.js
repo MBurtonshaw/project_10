@@ -34,8 +34,10 @@ class Header extends Component {
                 {/*Otherwise 'sign-in' & 'sign-up' are displayed*/}
                 { authUser 
                   ? <React.Fragment>
-                      <span>Welcome, { authUser.user.firstName }! </span>
-                      <Link to='/signout' onClick={ ()=>{} }>Sign Out</Link>
+                    <ul className='signin_ul'>
+                      <li>Welcome, { authUser.user.firstName }! </li>
+                      <li><Link to='/signout' onClick={ ()=>{} }>Sign Out</Link></li>
+                      </ul>
                     </React.Fragment> 
                   :
                     <ul className="header--signedout">
