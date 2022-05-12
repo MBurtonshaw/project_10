@@ -5,7 +5,7 @@ import Error from './Error';
 export default function Courses( props ) {
 
   const [ courseList, setCourseList ] = useState([ '' ]);
-  const [ mistakes, setMistakes ] = useState('');
+  const [ mistakes, setMistakes ] = useState([]);
 
   async function loader() {
       try{
@@ -15,21 +15,21 @@ export default function Courses( props ) {
         ));
       } catch( error ) {
         setMistakes(error.response.status + ' ' + error.response.statusText);
+        console.log(mistakes)
       }
   };
     
     useEffect( () => { loader() }, [ setCourseList ] );
 
     function ErrorsDisplay() {
-      if (this.state.mistakes !== null) {
-        let errors_list = this.state.errors.map((error, index) => 
-          <li key={index} className='error_display'>{error}</li>
-        );
+      if (mistakes !== null) {
+        return null;
+      } else {
      return (
        <div className='error_display' id='error_display_div'>
           <div className='error_display'>
           <ul className='error_display'>
-            {errors_list}
+           
           </ul>
           </div>
        </div>
