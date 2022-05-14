@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 import withNavigation from '../HOCs/Nav';
-import Error from './Error';
+import UnhandledError from './UnhandledError';
 
 class UserSignIn extends Component {
   state = {
@@ -19,10 +19,10 @@ class UserSignIn extends Component {
     } = this.state;
 
     function ErrorsDisplay() {
-      if (errors) {
-        let errors_list = errors.map((error, index) => 
-          <li key={index} className='error_display'>{error}</li>
-        );
+      if (errors.length > 0) {
+        let errors_list = 
+          <li className='error_display'>{errors}</li>
+        ;
      return (
        <div className='error_display' id='error_display_div'>
           <div className='error_display'>
@@ -87,25 +87,27 @@ class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
-    context.actions.signIn( emailAddress, password ).then(
-      user => {
-        if ( user === null ) {
-          this.setState( ()=>{
-            return { errors: [ 'signin unsuccessful' ] }
+      if ( emailAddress === '' || emailAddress === undefined || emailAddress === null ) {
+          this.setState({
+            errors:  ['Please enter your email address'] 
           });
         } else {
-          this.setState( ()=>{
-            return {
-              emailAddress: emailAddress,
-              password: password
-            }
+          this.setState({
+              emailAddress: emailAddress
+        });
+      if (password === '' || password === undefined || password === null) {
+          this.setState({
+            errors: ['Please enter your password']
           });
+        } else {
+          this.setState({
+              password: password
+        });
+        context.actions.signIn( emailAddress, password );
           //Navigate to previous page when signed in
-          this.props.navigate( -1 );
+          this.props.navigate( '/' );
         }
-      }).catch(error=>
-         <Error error={error.message}/>
-      )
+      }
     };
 
   cancel = () => {

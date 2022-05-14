@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from 'react';
-import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from './NotFound';
 import MarkdownToHtml from '../HOCs/Markdown';
-import Error from './Error';
+import UnhandledError from './UnhandledError';
 
 
 export default function CourseDetail( props ) {
@@ -50,7 +50,7 @@ export default function CourseDetail( props ) {
           await props.context.actions.deleteCourse(`${id}`, emailAddress, password);
           navigate('/');
       } catch( error ) {
-        return <Error error={error.message}/>
+        return <UnhandledError error={error.message}/>
       }
     } else {
       return <NotFound />
@@ -158,7 +158,7 @@ export default function CourseDetail( props ) {
               )
         } 
       } catch(error) {
-        return <Error error={error.message}/>
+        return <UnhandledError error={error.message}/>
       }
     } 
   }

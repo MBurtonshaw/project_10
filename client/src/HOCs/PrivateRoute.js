@@ -4,6 +4,7 @@ import Forbidden from '../components/Forbidden';
 import { Context } from '../contexts/Context';
 import CreateCourse from '../components/CreateCourse';
 import UpdateCourse from '../components/UpdateCourse';
+import SignUp from '../components/SignUp';
 
 export default function PrivateRoute() {
       const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function PrivateRoute() {
       let { id } = useParams();
 
       if (context.authenticatedUser === null || context.authenticatedUser === undefined) {
-            return <Forbidden context={context}/>
+            return <SignUp context={context}/>
       }
       else if (window.location.href === `http://localhost:3000/courses/create`) {
             return <CreateCourse context={context} navigate={navigate}/>

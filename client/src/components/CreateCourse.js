@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
 import Form from './Form';
-import Error from './Error';
 
 class CreateCourse extends Component {
     constructor(props) {
@@ -60,8 +59,7 @@ class CreateCourse extends Component {
       }
 
         return (
-            <div id='CreateCourse_div'>
-            <div className="wrap header--flex">
+        
                 <div className="wrap">
                 
                     <h2>Create Course</h2>
@@ -101,8 +99,7 @@ class CreateCourse extends Component {
                         )}/>
                     
                     </div>
-                </div>
-            </div>
+             
             )
         } 
     

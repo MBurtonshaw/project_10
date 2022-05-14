@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {}
@@ -53,6 +54,12 @@ module.exports = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+            set(val) {
+                if (val !== undefined && val !== '' && val !== null) {
+                    const hashedPassword = bcrypt.hashSync(val, 10);
+                    this.setDataValue('password', hashedPassword);
+                }
+            },
             len: {
                 args: [8, 20],
                 msg: 'Password must be between 8 and 20 characters long'

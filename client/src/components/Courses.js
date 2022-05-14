@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Error from './Error';
+import UnhandledError from './UnhandledError';
 
 export default function Courses( props ) {
 
@@ -81,6 +81,6 @@ export default function Courses( props ) {
               </div>
             )}
       } catch ( error ) {
-          return <Error error={error.message}/>
+          return <UnhandledError error={error.message}/>
         }
   }

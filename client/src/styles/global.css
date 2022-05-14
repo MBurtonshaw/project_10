@@ -204,6 +204,9 @@ textarea {
     font-weight: bold;
     transition: background 0.2s;
 }
+.button:first-child {
+    margin-left: 0.5em;
+}
 .button:last-child {
     margin-bottom: 0;
 }

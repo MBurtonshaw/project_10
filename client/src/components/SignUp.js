@@ -23,7 +23,7 @@ class UserSignUp extends Component {
     } = this.state;
 
     function ErrorsDisplay() {
-      if (errors) {
+      if (errors.length > 1) {
         let errors_list = errors.map((error, index) => 
           <li key={index} className='error_display'>{error}</li>
         );
@@ -37,7 +37,20 @@ class UserSignUp extends Component {
        </div>
      )
       }
-      return null;
+      else if (errors.length === 1) {
+        let error_list = <li className='error_display'>{errors}</li>;
+        return (
+          <div className='error_display' id='error_display_div'>
+            <div className='error_display'>
+            <ul className='error_display'>
+              {error_list}
+            </ul>
+            </div>
+        </div>
+      )
+        } else {
+          return null;
+        }
   }
 
     return (
@@ -108,7 +121,6 @@ class UserSignUp extends Component {
     const user = { firstName, lastName, emailAddress, password };
 
     //Executing createUser function from Data.js using the above 'user' variable
-   if (user.password !== undefined || user.password !== '' || user.password !== null) {
     context.data.createUser( user ).then(
       errors => {
         if ( errors.length ) {
@@ -118,13 +130,9 @@ class UserSignUp extends Component {
             this.props.navigate('/');
         }
       }).catch(err => {
-        this.props.navigate( '/error', {err} );
+        this.props.navigate( '/UnhandledError', {err} );
       });
-   } else {
-     this.setState({errors: 'Please provide a password'});
    }
-
-  }
 
   cancel = () => {
     this.props.navigate( '/' );
