@@ -1,5 +1,4 @@
 import config from '../config';
-import withNavigation from './Nav';
 
 export default class Data {
   api( path, method = 'GET', body = null, requiresAuth = false, credentials = null ) {

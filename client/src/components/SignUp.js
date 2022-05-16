@@ -130,7 +130,7 @@ class UserSignUp extends Component {
             this.props.navigate('/');
         }
       }).catch(err => {
-        this.props.navigate( '/UnhandledError', {err} );
+        this.props.navigate( '/error', {err} );
       });
    }
 

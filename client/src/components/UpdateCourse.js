@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import withNavigation from '../HOCs/Nav';
 import withParameters from '../HOCs/Params';
-import Forbidden from './Forbidden';
 import Form from './Form';
-import NotFound from './NotFound';
 
 class UpdateCourse extends Component {
   constructor(props) {

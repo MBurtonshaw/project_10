@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 import withNavigation from '../HOCs/Nav';
-import UnhandledError from './UnhandledError';
 
 class UserSignIn extends Component {
   state = {
@@ -87,6 +86,7 @@ class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
+
       if ( emailAddress === '' || emailAddress === undefined || emailAddress === null ) {
           this.setState({
             errors:  ['Please enter your email address'] 
@@ -95,6 +95,7 @@ class UserSignIn extends Component {
           this.setState({
               emailAddress: emailAddress
         });
+          
       if (password === '' || password === undefined || password === null) {
           this.setState({
             errors: ['Please enter your password']
@@ -105,7 +106,7 @@ class UserSignIn extends Component {
         });
         context.actions.signIn( emailAddress, password );
           //Navigate to previous page when signed in
-          this.props.navigate( '/' );
+          this.props.navigate( -1 );
         }
       }
     };

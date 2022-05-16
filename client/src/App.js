@@ -50,7 +50,7 @@ function App() {
             <Route path='/signup' element={ <UserSignUpWithContext/> }></Route>
             <Route path='/signout' element={ <UserSignOutWithContext/> }></Route>
             <Route path='/forbidden' element={ <Forbidden/> }></Route>
-            <Route path='/unhandledError' element={ <UnhandledError /> }></Route>
+            <Route path='/error' element={ <UnhandledError /> }></Route>
             <Route path='/notFound' element={ <NotFound/> }></Route>
             <Route path='*' element={ <NotFound/> }></Route>
           </Routes>
