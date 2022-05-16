@@ -34,6 +34,11 @@ class UpdateCourse extends Component {
       componentDidMount() {
         let { id } = this.props.params;
         if (id) {
+          //If id param is in the url, execute getCourse() based on that id
+          //Then take that data and set it to state
+          //If there is no course, redirect to /NotFound
+          //If the course.userId is not equal to the authenticatedUser's id, the user
+          //is redirected to /Forbidden
           this.props.context.actions.getCourse(id).then(
             response => {
               if (!response.course) {
@@ -74,6 +79,7 @@ class UpdateCourse extends Component {
               let owner = this.props.context.authenticatedUser;
 
               function ErrorsDisplay() {
+                //Conditionally rendered error display based on errors in Form
                 if (errors) {
                   let errors_list = errors.map((error, index) => 
                     <li key={index} className='error_display'>{error}</li>
@@ -102,6 +108,7 @@ class UpdateCourse extends Component {
                           submit={ this.submit }
                           submitButtonText="Update"
                           elements={ () => (
+                            //A React fragment to render the form data and capture user input
                               <React.Fragment>
                                   <div className="main--flex">
                                       <div>
@@ -132,6 +139,7 @@ class UpdateCourse extends Component {
               )
     }
 
+    //Arrow function that captures changes to the input elements and saves that data to state
     change = ( event ) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -143,19 +151,23 @@ class UpdateCourse extends Component {
         });
       }
 
-      //CLEARED FOR ERRORS
     submit = () => {
         const { context } = this.props;
         const courseId = this.props.params.id;
         const { userId, title, description, estimatedTime, materialsNeeded } = this.state;
     
+        //Conditional statement to check the validity of the course to be updated
         if (this.props.params.id !== undefined) {
               try {
+                //UpdateCourse function from HOCs/Data.js through context
+                //Uses data from state which was collected in the Form component
                 context.data.updateCourse( courseId, userId, title, description, estimatedTime, materialsNeeded, this.state.emailAddress, this.state.password ).then(
                   errors => {
                     if (errors) {
+                      //Any potential errors are set to state and will then be displayed with ErrorsDisplay component
                       this.setState({errors: errors});
                     } else {
+                      //If there are no errors, the user is redirected to the page of the course they have just updated
                       this.props.navigate(`/courses/${courseId}`);
                     }
                   }

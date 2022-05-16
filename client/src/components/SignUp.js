@@ -23,6 +23,7 @@ class UserSignUp extends Component {
     } = this.state;
 
     function ErrorsDisplay() {
+      //Conditionally rendered error display based on errors from Form
       if (errors.length > 1) {
         let errors_list = errors.map((error, index) => 
           <li key={index} className='error_display'>{error}</li>
@@ -61,7 +62,7 @@ class UserSignUp extends Component {
             errors={ errors }
             submit={ this.submit }
             submitButtonText="Sign Up"
-            //Render prop to fill in the body of the form
+            //Render prop to fill in the body of the form and capture user data
             elements={ () => (
               <React.Fragment>
                 <input 
