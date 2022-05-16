@@ -18,6 +18,8 @@ class UserSignIn extends Component {
     } = this.state;
 
     function ErrorsDisplay() {
+      //Captures potential form errors and displays them as <li> items
+      //Otherwise it isn't rendered
       if (errors.length > 0) {
         let errors_list = 
           <li className='error_display'>{errors}</li>
@@ -43,7 +45,8 @@ class UserSignIn extends Component {
             errors={ errors }
             submit={ this.submit }
             submitButtonText="Sign In"
-            //Render prop to fill in the body of the form
+            //Render props to fill in the body of the form
+            //Form will capture user input
             elements={ () => (
               <React.Fragment>
                 <input 
@@ -87,6 +90,7 @@ class UserSignIn extends Component {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
 
+      //Checking for emailAddress value
       if ( emailAddress === '' || emailAddress === undefined || emailAddress === null ) {
           this.setState({
             errors:  ['Please enter your email address'] 
@@ -96,6 +100,7 @@ class UserSignIn extends Component {
               emailAddress: emailAddress
         });
           
+        //Checking for password value
       if (password === '' || password === undefined || password === null) {
           this.setState({
             errors: ['Please enter your password']
@@ -104,6 +109,8 @@ class UserSignIn extends Component {
           this.setState({
               password: password
         });
+
+        //Signing in once emailAddress and password are provided
         context.actions.signIn( emailAddress, password );
           //Navigate to previous page when signed in
           this.props.navigate( -1 );
