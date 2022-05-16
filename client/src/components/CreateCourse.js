@@ -40,6 +40,7 @@ class CreateCourse extends Component {
 
         let owner = this.props.context.authenticatedUser;
           
+        //Conditionally rendering error display based on if there are errors present in state
         function ErrorsDisplay() {
           if (errors) {
             let errors_list = errors.map((error, index) => 
@@ -64,11 +65,15 @@ class CreateCourse extends Component {
                 
                     <h2>Create Course</h2>
                     
+                    {/* Calling on the Form component and setting variables */}
                     <Form
                         cancel={ this.cancel }
                         errors={ errors }
                         submit={ this.submit }
                         submitButtonText="Create"
+
+                        /* Using a react fragment to return a form element and capture values
+                            to be input by the user */
                         elements={ () => (
                           
                             <React.Fragment>
@@ -103,7 +108,8 @@ class CreateCourse extends Component {
             )
         } 
     
-
+        //Arrow function to capture any changes in the input fields of the form element
+        //and set them to state
     change = ( event ) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -119,21 +125,25 @@ class CreateCourse extends Component {
         const { context } = this.props;
         const { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password } = this.state;
         
+        //Declaring both course and credentials as their own objects based on values from state
         const course = { userId, title, description, estimatedTime, materialsNeeded, emailAddress, password };
         const credentials = { emailAddress, password };
 
           try {
+            //Calling createCourse() from HOCs/Data.js through context
+            //Then setting any potential errors to state
             context.data.createCourse( course, credentials ).then(errors=>{
               if (errors) {
                 this.setState({errors: errors})
               }
+              //If there are no errors, the course is created and the user is redirected to the homepage
               else {
                 this.props.navigate('/');
               }
             });
             
        } catch(error) {
-            console.log(error)
+          this.setState({errors: error})
           }
     
     }
