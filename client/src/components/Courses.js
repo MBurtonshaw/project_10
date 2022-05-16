@@ -9,19 +9,26 @@ export default function Courses( props ) {
 
   async function loader() {
       try{
+        //Making an axios call to return all the courses' data in the db, then
+        //set that data to state
         return(
           await axios.get( `http://localhost:5000/api/courses` ).then(
               response => setCourseList( response.data )
         ));
       } catch( error ) {
+        //If there are errors, they are set to state to be displayed later in ServerError Display
         setMistakes(error.response.status + ' ' + error.response.statusText);
       }
   };
     
+    //Upon page rendering, loader() function is invoked
+    //setCourseList is listed as a dependency to avoid infinite looping behavior
     useEffect( () => { loader() }, [ setCourseList ] );
 
     function ServerErrorDisplay() {
       if (mistakes !== null) {
+        //If there are any errors present in state, display them as <li> items
+        //Otherwise, this component isn't displayed
         let errors_list = 
           <li key={1} className='error_display'>{mistakes}</li>;
      return (
@@ -38,10 +45,12 @@ export default function Courses( props ) {
   }
 
     try {
+      //If course data is present in state
       if ( courseList ) {
         
         return (
           <div id='Courses_div'>
+            {/*Error display renders conditionally*/}
             <ServerErrorDisplay />
             <div className="wrap main--grid">
               {
