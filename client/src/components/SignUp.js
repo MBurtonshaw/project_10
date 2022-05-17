@@ -24,12 +24,12 @@ class UserSignUp extends Component {
 
     function ErrorsDisplay() {
       //Conditionally rendered error display based on errors from Form
-      if (errors.length > 1) {
+      if (errors.length > 0) {
         let errors_list = errors.map((error, index) => 
           <li key={index} className='error_display'>{error}</li>
         );
      return (
-       <div className='error_display' id='error_display_div'>
+       <div className='validation--errors' id='error_display_div'>
           <div className='error_display'>
           <ul className='error_display'>
             {errors_list}
@@ -37,18 +37,6 @@ class UserSignUp extends Component {
           </div>
        </div>
      )
-      }
-      else if (errors.length === 1) {
-        let error_list = <li className='error_display'>{errors}</li>;
-        return (
-          <div className='error_display' id='error_display_div'>
-            <div className='error_display'>
-            <ul className='error_display'>
-              {error_list}
-            </ul>
-            </div>
-        </div>
-      )
         } else {
           return null;
         }

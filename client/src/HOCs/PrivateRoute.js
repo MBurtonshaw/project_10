@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Context } from '../contexts/Context';
 import CreateCourse from '../components/CreateCourse';
@@ -10,14 +10,19 @@ export default function PrivateRoute() {
       const context = useContext(Context);
   
       let { id } = useParams();
+      console.log(context.authenticatedUser)
+      let credentials = context.authenticatedUser;
 
-      if (context.authenticatedUser === null || context.authenticatedUser === undefined) {
-            return <SignIn context={context}/>
-      }
-      else if (window.location.href === `http://localhost:3000/courses/create`) {
+      useEffect(()=>{
+            if (credentials === null) {
+                  navigate('/Signin');
+            }
+      });
+
+      if (window.location.href === `http://localhost:3000/courses/create`) {
             return <CreateCourse context={context} navigate={navigate}/>
       }
-      else if (window.location.href === `http://localhost:3000/courses/${id}/update`) {
+      if (window.location.href === `http://localhost:3000/courses/${id}/update`) {
             return <UpdateCourse context={context} navigate={navigate}/>
       }
 }

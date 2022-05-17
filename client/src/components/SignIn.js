@@ -25,7 +25,7 @@ class UserSignIn extends Component {
           <li className='error_display'>{errors}</li>
         ;
      return (
-       <div className='error_display' id='error_display_div'>
+       <div className='validation--errors' id='error_display_div'>
           <div className='error_display'>
           <ul className='error_display'>
             {errors_list}
@@ -113,7 +113,7 @@ class UserSignIn extends Component {
         //Signing in once emailAddress and password are provided
         context.actions.signIn( emailAddress, password );
           //Navigate to previous page when signed in
-          this.props.navigate( -1 );
+          this.props.navigate( '/' );
         }
       }
     };

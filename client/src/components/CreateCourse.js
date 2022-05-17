@@ -47,7 +47,7 @@ class CreateCourse extends Component {
               <li key={index} className='error_display'>{error}</li>
             );
          return (
-           <div className='error_display' id='error_display_div'>
+           <div className='validation--errors' id='error_display_div'>
               <div className='error_display'>
               <ul className='error_display'>
                 {errors_list}

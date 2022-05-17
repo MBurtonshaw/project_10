@@ -10,6 +10,8 @@ export class Provider extends Component {
   constructor() {
     super();
     this.data = new Data();
+    //Fetching cookie and setting it to state
+    //If there is no cookie, null is returned
     this.cookie = Cookies.get( 'authenticatedUser' );
     this.state = {
       authenticatedUser : this.cookie ? JSON.parse( this.cookie ) : null,
@@ -37,7 +39,6 @@ export class Provider extends Component {
         updateCourse: this.updateCourse,
         deleteCourse: this.deleteCourse,
         createCourse: this.createCourse,
-        load_courses: this.load_courses,
         getCourse: this.getCourse
       }
     }
@@ -50,15 +51,18 @@ export class Provider extends Component {
   }
 
   signIn = async ( emailAddress, password ) => {
+    //Fetching user data
     const user = await this.data.getUser( emailAddress, password );
     
     if ( user !== null ) {
       this.setState(() => {
+        //If not null, set authenticatedUser
         return {
           authenticatedUser: user
         };
       });
       user.user.password = password;
+      //Set user credentials and save to a cookie
       Cookies.set( 'authenticatedUser', JSON.stringify( user ), { expires: 1 } );
     }
     return user;
@@ -66,6 +70,7 @@ export class Provider extends Component {
 
   signOut = () => {
     try {
+      //Remove user from state, delete cookie
       this.setState(()=> {
         return {
           authenticatedUser: null }
@@ -78,6 +83,7 @@ export class Provider extends Component {
 
   getCourse = async(id) => {
     try {
+      //Fetching course data based on course id
       let course = await this.data.getCourse(id);
       return course;
     } catch(error) {
@@ -90,6 +96,7 @@ export class Provider extends Component {
   }
 
   deleteCourse = async (courseId, emailAddress, password) => {
+    //Double checking for authenticatedUser
     if ( this.state.authenticatedUser !== null) {
       try {
         await this.data.deleteCourse(courseId, emailAddress, password);
@@ -100,6 +107,7 @@ export class Provider extends Component {
   }
 
   updateCourse = async (courseId, userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
+    //Checking for authenticatedUser
     if ( this.state.authenticatedUser.user.emailAddress !== null) {
       try {
         await this.data.updateCourse({
@@ -108,12 +116,11 @@ export class Provider extends Component {
       } catch(error) {
         return error;
       }
-    } else {
-      return <Forbidden />
     }
 }
 
   createCourse = async (userId, title, description, estimatedTime, materialsNeeded, emailAddress, password) => {
+    //Checking for authenticatedUser
     if ( this.state.authenticatedUser.user.emailAddress !== null) {
       try {
         await this.data.createCourse({
@@ -122,8 +129,6 @@ export class Provider extends Component {
       } catch(error) {
         return error;
       }
-    } else {
-      return <Forbidden />
     }
   }
 }
