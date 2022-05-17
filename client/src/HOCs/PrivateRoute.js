@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Context } from '../contexts/Context';
 import CreateCourse from '../components/CreateCourse';
 import UpdateCourse from '../components/UpdateCourse';
-import SignIn from '../components/SignIn';
 
 export default function PrivateRoute() {
       const navigate = useNavigate();
@@ -15,7 +14,7 @@ export default function PrivateRoute() {
 
       useEffect(()=>{
             if (credentials === null) {
-                  navigate('/Signin');
+                  navigate('/signin');
             }
       });
 
