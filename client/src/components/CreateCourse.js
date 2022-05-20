@@ -3,20 +3,7 @@ import withNavigation from '../HOCs/Nav';
 import Form from './Form';
 
 class CreateCourse extends Component {
-    constructor(props) {
-        super();
-        let owner = props.context.authenticatedUser
-        this.state = {
-            userId: owner.user.id,
-            emailAddress: owner.user.emailAddress,
-            password: owner.user.password,
-            title: '',
-            description: '',
-            estimatedTime: '',
-            materialsNeeded: '',
-            errors: null
-        }
-    }
+    
     state = {
         userId: '',
         title: '',
@@ -26,6 +13,24 @@ class CreateCourse extends Component {
         emailAddress: '',
         password: '',
         errors: [],
+      }
+
+      componentDidMount() {
+        if (this.props.context.authenticatedUser === null) {
+          this.props.navigate('/signIn');
+        } else {
+          let owner = this.props.context.authenticatedUser
+          this.setState({
+              userId: owner.user.id,
+              emailAddress: owner.user.emailAddress,
+              password: owner.user.password,
+              title: '',
+              description: '',
+              estimatedTime: '',
+              materialsNeeded: '',
+              errors: null
+          })
+        }
       }
 
     render(props) {

@@ -9,11 +9,9 @@ export default function PrivateRoute() {
       const context = useContext(Context);
   
       let { id } = useParams();
-      console.log(context.authenticatedUser)
-      let credentials = context.authenticatedUser;
 
       useEffect(()=>{
-            if (credentials === null) {
+            if (context.authenticatedUser === null) {
                   navigate('/signin');
             }
       });
