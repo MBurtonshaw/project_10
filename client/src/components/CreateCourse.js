@@ -49,12 +49,13 @@ class CreateCourse extends Component {
         function ErrorsDisplay() {
           if (errors) {
             let errors_list = errors.map((error, index) => 
-              <li key={index} className='error_display'>{error}</li>
+              <li key={index} >{error}</li>
             );
          return (
-           <div className='validation--errors' id='error_display_div'>
-              <div className='error_display'>
-              <ul className='error_display'>
+           <div className='validation--errors' >
+              <div>
+                <h3>Validation Errors</h3>
+              <ul>
                 {errors_list}
               </ul>
               </div>
@@ -82,7 +83,7 @@ class CreateCourse extends Component {
                         elements={ () => (
                           
                             <React.Fragment>
-                              
+                              <ErrorsDisplay errors={this.state.errors}/>
                                 <div className="main--flex">
                                 
                                     <div>
@@ -104,7 +105,7 @@ class CreateCourse extends Component {
                                         </textarea>
                                     </div>
                                 </div>
-                                <ErrorsDisplay errors={this.state.errors}/>
+                                
                         </React.Fragment>
                         )}/>
                     

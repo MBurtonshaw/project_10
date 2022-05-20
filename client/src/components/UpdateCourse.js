@@ -78,29 +78,31 @@ class UpdateCourse extends Component {
           
               let owner = this.props.context.authenticatedUser;
 
-              function ErrorsDisplay() {
-                //Conditionally rendered error display based on errors in Form
-                if (errors) {
-                  let errors_list = errors.map((error, index) => 
-                    <li key={index} className='error_display'>{error}</li>
-                  );
-              return (
-                <div className='validation--errors' id='error_display_div'>
-                    <div className='error_display'>
-                    <ul className='error_display'>
-                      {errors_list}
-                    </ul>
-                    </div>
-                </div>
-              )
-                }
-                return null;
-            }
+                      //Conditionally rendering error display based on if there are errors present in state
+        function ErrorsDisplay() {
+          if (errors) {
+            let errors_list = errors.map((error, index) => 
+              <li key={index} >{error}</li>
+            );
+         return (
+           <div className='validation--errors' >
+              <div>
+                <h3>Validation Errors</h3>
+              <ul>
+                {errors_list}
+              </ul>
+              </div>
+           </div>
+         )
+          }
+          return null;
+      }
 
           return (
-              <div id='UpdateCourse_div'>
-              <div className="wrap header--flex">
+
+              
                   <div className="wrap">
+                        <ErrorsDisplay errors={errors} />
                       <h2>Update Course</h2>
                       <Form
                           cancel={ this.cancel }
@@ -110,8 +112,9 @@ class UpdateCourse extends Component {
                           elements={ () => (
                             //A React fragment to render the form data and capture user input
                               <React.Fragment>
-                                  <div className="main--flex">
-                                      <div>
+                                
+                                      <div className='main--flex'>
+                                        <div>
                                           <label htmlFor="courseTitle">Course Title</label>
                                           <input id="courseTitle" name="title" type="text" value={title} onChange={ this.change }/>
 
@@ -119,23 +122,23 @@ class UpdateCourse extends Component {
 
                                           <label htmlFor="courseDescription">Course Description</label>
                                           <textarea id="courseDescription" name="description" value={description} onChange={ this.change }></textarea>
-                                      </div>
-                                      <div>
-                                          <label htmlFor="estimatedTime">Estimated Time</label>
-                                          <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={ this.change }/>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="estimatedTime">Estimated Time</label>
+                                            <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={ this.change }/>
 
-                                          <label htmlFor="materialsNeeded">Materials Needed</label>
-                                          <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={ this.change }>
-                                          </textarea>
+                                            <label htmlFor="materialsNeeded">Materials Needed</label>
+                                            <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={ this.change }>
+                                            </textarea>
+                                        </div>
                                       </div>
-                                  </div>
-                                  <ErrorsDisplay errors={errors} />
+                              
                           </React.Fragment>
                           )}/>
                       
                       </div>
-                  </div>
-              </div>
+                
+  
               )
     }
 

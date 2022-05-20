@@ -49,20 +49,24 @@ class UserSignIn extends Component {
             //Form will capture user input
             elements={ () => (
               <React.Fragment>
+                <label
+                  htmlFor='emailAddress'>Email Address
+                </label>
                 <input 
                   id="emailAddress" 
                   name="emailAddress" 
                   type="text"
                   value={ emailAddress } 
-                  onChange={ this.change } 
-                  placeholder="Email Address" />
+                  onChange={ this.change } />
+                  <label htmlFor='password'>
+                    Password
+                  </label>
                 <input 
                   id="password" 
                   name="password"
                   type="password"
                   value={ password } 
-                  onChange={ this.change } 
-                  placeholder="Password" />          
+                  onChange={ this.change } />          
                   <ErrorsDisplay />      
               </React.Fragment>
             )} />
