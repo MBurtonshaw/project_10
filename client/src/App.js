@@ -33,6 +33,7 @@ function App() {
         <HeaderWithContext />
           <Routes>
             <Route exact path='/' element={ <CoursesWithContext/> }></Route>
+            {/* Syntax for a route to be handled through PrivateRoute component */}
             <Route 
               path='/courses/create' 
               element={ <PrivateRoute>
