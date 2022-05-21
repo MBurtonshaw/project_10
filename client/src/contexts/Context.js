@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Data from '../HOCs/Data';
 import Cookies from 'js-cookie';
-import Forbidden from '../components/Forbidden';
 
 export const Context = React.createContext(); 
 
