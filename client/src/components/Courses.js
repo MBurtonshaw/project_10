@@ -9,6 +9,21 @@ export default function Courses( props ) {
 
   async function loader() {
       try{
+        let color = 'brown';
+        function getColor(color) {
+          color = 'red';
+          return color;
+        }
+        let number = 234;
+        
+        let number_1 = String(number).slice(0, 1);
+        let number_2 = String(number).slice(1, -1);
+        let number_3 = String(number).slice(2);
+        let exponent = String(number).length;
+
+        console.log(
+          number_1 + ' ' + number_2 + ' ' + number_3 + ' ' + exponent
+        );
         //Making an axios call to return all the courses' data in the db, then
         //set that data to state
         return(

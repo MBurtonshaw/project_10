@@ -17,6 +17,8 @@ import PrivateRoute from './HOCs/PrivateRoute';
 
 const CoursesWithContext = withContext( Courses );
 const CourseDetailWithContext = withContext( CourseDetail );
+const CreateCourseWithContext = withContext( CreateCourse );
+const UpdateCourseWithContext = withContext( UpdateCourse );
 const UserSignUpWithContext = withContext( UserSignUp );
 const UserSignInWithContext = withContext( UserSignIn );
 const UserSignOutWithContext = withContext( UserSignOut );
@@ -36,16 +38,14 @@ function App() {
             {/* Syntax for a route to be handled through PrivateRoute component */}
             <Route 
               path='/courses/create' 
-              element={ <PrivateRoute>
-                          <CreateCourse/>
-                        </PrivateRoute> }>
+              element={ <PrivateRoute /> }>
+                          <Route index element={<CreateCourseWithContext />}/>
               </Route>
             <Route path='/courses/:id' element={ <CourseDetailWithContext/> }></Route>
             <Route 
               path='/courses/:id/update' 
-              element={ <PrivateRoute>
-                          <UpdateCourse/>
-                        </PrivateRoute> }>
+              element={ <PrivateRoute /> }>
+                          <Route index element={<UpdateCourseWithContext />}/>
               </Route>
             <Route path='/signin' element={ <UserSignInWithContext/> }></Route>
             <Route path='/signup' element={ <UserSignUpWithContext/> }></Route>
