@@ -1,13 +1,8 @@
-To launch app:
+Full stack version of project_9; front end added with Pug templates through Express.js; perform User authentication and CRUD operations on classes in a school database.
+
+# To Run
 --- navigate to /client
 --- run 'npm install'
 --- navigate to /api
 --- run 'npm install'
 --- run 'npm start' from /api
-
-API & Client will run concurrently
-
-App will display a list of courses from the source api
-Users can create new courses or modify courses they've already made once signed up & logged in
-Update and Create course options are private routes
-Validation errors from api are displayed conditionally
